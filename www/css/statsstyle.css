@@ -1,0 +1,409 @@
+@font-face {
+    font-family: Sone;
+    src: url("font/Sone.otf");
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+html{
+	border:none;
+}
+body{
+	background-color: #fff;
+	margin: 0%;
+}
+
+
+/********/
+/*NavBar*/
+/********/
+#navbar{
+	list-style-type: none;
+	margin:0%;
+	overflow: hidden;
+	background-repeat: no-repeat;;
+	background: linear-gradient(0deg, transparent 15%, #cecece 0%);
+	padding-left: 0;
+	z-index: 950;
+}
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+	z-index: 950;
+}
+.li_n{
+	float: left;
+	color: white;
+	flex: 1;
+	width:18%;
+}
+.li_m{
+	float: left;
+	color: white;
+	flex: 1;
+	width:28%;
+}
+
+
+.things:hover{
+	background-color: rgb(195,195,195);
+	cursor: pointer;
+}
+.clock:hover{
+	background-color: rgb(195,195,195);
+	cursor:pointer;
+}
+.main:hover{
+	filter: brightness(80%);
+	cursor:pointer;
+}
+.stats:hover{
+	background-color: rgb(195,195,195);
+	cursor:pointer;
+}
+.perfil:hover{
+	background-color: rgb(195,195,195);
+	cursor:pointer;
+}
+
+
+
+
+.things{
+	padding-top: 17%;
+	padding-left: 22%;
+	padding-right: 22%;
+	padding-bottom: 19%;
+	height: 65%;
+	width: 55%;
+	display: block;
+
+}
+.clock{
+	padding-top: 17%;
+	padding-left: 22%;
+	padding-right: 22%;
+	padding-bottom: 19%;
+	height: 65%;
+	width: 55%;
+	display: block;
+}
+.main{
+	height:100%;
+	width:100%;
+	display: block;
+}
+.stats{
+	padding-top: 17%;
+	padding-left: 22%;
+	padding-right: 22%;
+	padding-bottom: 19%;
+	height: 65%;
+	width: 55%;
+	display: block;
+
+}
+.perfil{
+	padding-top: 17%;
+	padding-left: 22%;
+	padding-right: 22%;
+	padding-bottom: 19%;
+	height: 65%;
+	width: 55%;
+	display: block;
+}
+
+
+/*Demilitando tamanho*/
+.content-desktop {
+	display: block;
+	position: relative;
+	margin-left:40%;
+	margin-right: :40%;
+	margin-top: 20%;
+}
+.content-mobile {
+	display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+	.content-desktop {
+		display: none;
+	}
+	.content-mobile {
+		display: block;
+	}
+}
+
+
+  /************/
+ /* Side Nav */
+/************/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1150;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    font-size:13px;
+    font-family: Sone;
+    font-weight: bold;
+}
+
+.sidenav a {
+    padding: 2% 2% 2% 10%;
+    text-decoration: none;
+    font-size: 125%;
+    color: rgb(231,231,231);
+    display: block;
+    transition: 0.3s;
+    margin-bottom: 7px;
+}
+
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 1%;
+    font-size: 36px;
+    margin-left: 50px;
+
+}
+
+.sobre{
+
+	margin-top: 200px;
+}
+
+.sair{
+	margin-top: 200px;
+}
+
+
+/* Home */
+.icon_home{
+	width:100%;
+	height:100%;
+	padding-right: 5%;
+}
+
+#home_behind{
+	height: 23px;
+	width: 23px;
+	background-color: #fff;
+	display:block;
+	float:left;
+	margin-right: 7px;
+	margin-top: -3px;
+}
+
+
+/* Movimentos */
+.icon_forte{
+	width:100%;
+	height:100%;
+	margin-right: 4%;
+}
+
+#forte_behind{
+	height: 23px;
+	width: 23px;
+	background-color: #fff;
+	display:block;
+	float:left;
+	margin-right: 7px;
+	margin-top: -3px;
+}
+
+
+/*Calendario*/
+.icon_calendario{
+	width:100%;
+	height:100%;
+	margin-right: 4%;
+}
+
+#calendario_behind{
+	height: 23px;
+	width: 23px;
+	background-color: #fff;
+	display:block;
+	float:left;
+	margin-right: 7px;
+	margin-top: -3px;
+}
+
+/*POP UP*/
+#popback {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    display: none;
+    z-index: 900;
+    padding-top: 6%;
+    top: 9.8vh;
+}
+
+#popup {
+    height: 31%;
+    position: absolute;
+    background-color: white;
+    left: 9%;
+    right: 9%;
+    border-width: 8px;
+    border-color: #000;
+    border-style: solid;
+    border-radius: 7%;
+}
+
+#TreinoAutomatico{
+	text-decoration: none;
+	font-family: Sone;
+	font-size: 18px;
+	color: #fff;
+}
+#GreenBall1 {
+    border-style: solid;
+    border-color: green;
+    border-width: 5px;
+    width: 5px;
+    height: 5px;
+    background-color: green;
+    position: absolute;
+    top: 11.3%;
+    left: 15%;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+#TreinoManual{
+	text-decoration: none;
+	font-family: Sone;
+	font-size: 18px;
+	color: #fff;
+
+}
+#GreenBall2 {
+    border-style: solid;
+    border-color: green;
+    border-width: 5px;
+    width: 5px;
+    height: 5px;
+    background-color: green;
+    position: absolute;
+    top: 20.3%;
+    left: 15%;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+#TreinosMontados{
+	text-decoration: none;
+	font-family: Sone;
+	font-size: 18px;
+	color: #fff;
+
+}
+#GreenBall3 {
+    border-style: solid;
+    border-color: green;
+    border-width: 5px;
+    width: 5px;
+    height: 5px;
+    background-color: green;
+    position: absolute;
+    top: 29.3%;
+    left: 15%;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+
+#FirstBubble {
+    width: 70vw;
+    height: 50px;
+    background: #44c249;
+    position: absolute;
+    top: 6vh;
+    border-radius: 50px;
+    left: calc(50% - 35vw);
+    text-align: center;
+    line-height: 2.6;
+    transition: transform ease-in 0.1s;
+}
+#FirstBubble:active{
+    transform:scale(0.9);
+}
+
+#SecondBubble {
+    width: 70vw;
+    height: 50px;
+    background: #e64231;
+    position: absolute;
+    top: calc(6vh + 50px + 20px);
+    border-radius: 50px;
+    left: calc(50% - 35vw);
+    text-align: center;
+    line-height: 2.6;
+    transition: transform ease-in 0.1s;
+}
+#SecondBubble:active{
+    transform:scale(0.9);
+}
+#ThirdBubble {
+    width: 70vw;
+    height: 50px;
+    background: #258cd0;
+    position: absolute;
+    top: calc(6vh + 50px + 20px + 50px + 20px);
+    border-radius: 50px;
+    left: calc(50% - 35vw);
+    text-align: center;
+    line-height: 2.6;
+    transition: transform ease-in 0.1s;
+}
+#ThirdBubble:active{
+    transform:scale(0.9);
+}
+
+
+
+
+#area {
+    position: absolute;
+    width: calc(100vw - 10px);
+    top: 11vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 20px;
+    padding-bottom: 0;
+    z-index: -1;
+}
+
+
+#TreinosRealizados {
+    font-family: Arial;
+    background: rgb(179, 248, 156);
+    padding: 20px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 50vw;
+    border-radius: 50px;
+    transform: translate(-50%);
+}

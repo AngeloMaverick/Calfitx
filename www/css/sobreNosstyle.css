@@ -1,0 +1,173 @@
+@font-face {
+  font-family: Sone;
+  src: url("font/Sone.otf");
+}
+
+@font-face {
+  font-family: Sansation;
+  src: url("font/Sansation_Regular.ttf");
+}
+
+@font-face {
+  font-family: SansationLight;
+  src: url("font/Sansation_Light.ttf");
+}
+
+@font-face {
+  font-family: SansationBold;
+  src: url("font/Sansation_Bold.ttf");
+}
+
+*:focus {
+  outline: none;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  width: 100%;
+  height: 90%;
+  margin: 0%;
+  padding: 0%;
+}
+
+.content-mobile {
+  width: 100%;
+  height: 100vh;
+}
+
+/*Top Bar*/
+.topbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #000;
+  display: flex;
+}
+
+#voltar {
+  font-family: Sone;
+  font-size: 6vh;
+  text-decoration: none;
+  color: #fff;
+  margin-left: 10px;
+  display: block;
+  line-height: calc(50% + 6vh);
+}
+
+#txtTopo {
+  font-family: Sone;
+  font-size: 5vw;
+  margin: auto;
+  color: #fff;
+  margin-left: 7vw;
+}
+
+#area {
+  height: 90%;
+  width: 100%;
+  position: absolute;
+  overflow: scroll;
+  top: 10%;
+  background: #e5e5e5;
+}
+
+.Title {
+  width: 100vw;
+  text-align: center;
+  font-family: Sone;
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.topPics {
+  display: flex;
+  width: 80vw;
+  margin-left: 10vw;
+  position: absolute;
+  top: 100px;
+}
+
+.middlePics {
+  display: flex;
+  width: 80vw;
+  margin-left: 10vw;
+  position: absolute;
+  top: 270px;
+}
+
+.bottomPics {
+  display: flex;
+  width: 80vw;
+  margin-left: 10vw;
+  position: absolute;
+  top: 450px;
+}
+
+.FullImage {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ImageBox {
+  width: 100px;
+  border-radius: 50%;
+  border: solid 3px #257a22;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.Imagem {
+  width: 100px;
+  position: relative;
+  display: block;
+}
+
+.Nome {
+  margin-top: 5px;
+  font-family: Sone;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.Title2 {
+  width: 100vw;
+  text-align: center;
+  font-family: Sone;
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  top: 650px;
+  position: absolute;
+}
+
+.Texto {
+  width: 90vw;
+  left: calc(50% - 45vw);
+  text-align: justify;
+  font-family: Sone;
+  display: block;
+  font-size: 15px;
+  top: 720px;
+  position: absolute;
+  line-height: 1.5;
+  padding-bottom: 20px;
+}

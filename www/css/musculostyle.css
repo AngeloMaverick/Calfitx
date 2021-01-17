@@ -1,0 +1,173 @@
+@font-face {
+    font-family: Sone;
+    src: url("font/Sone.otf");
+}
+
+@font-face {
+    font-family: Sansation;
+    src: url("font/Sansation_Regular.ttf");
+}
+@font-face {
+    font-family: SansationLight;
+    src: url("font/Sansation_Light.ttf");
+}
+@font-face {
+    font-family: SansationBold;
+    src: url("font/Sansation_Bold.ttf");
+}
+*:focus {
+    outline: none;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+
+html{
+	width: 100%;
+	height: 100%;
+	margin: 0%;
+	padding: 0%;
+}
+body{
+	width: 100%;
+	height: 90%;
+	margin: 0%;
+	padding: 0%;
+}
+
+.content-mobile{
+    width: 100%;
+    height: 100vh;
+}
+
+
+/*Top Bar*/
+.topbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 10%;
+    background-color: #000;
+    display:flex;
+}
+
+#voltar {
+    font-family: Sone;
+    font-size: 6vh;
+    text-decoration: none;
+    color: #fff;
+    margin-left: 10px;
+    display: block;
+    line-height: calc(50% + 6vh);
+}
+#txtTopo {
+    font-family: Sone;
+    font-size: 5vw;
+    margin: auto;
+    color: #fff;
+    margin-left: 7vw;
+}
+
+
+#area {
+    height: 90%;
+    width: 100%;
+    position: absolute;
+    overflow: scroll;
+    top: 10%;
+    background: #e5e5e5;
+}
+
+
+#Salvar {
+    position: absolute;
+    top: 496px;
+    width: 90vw;
+    height: 55px;
+    border: none;
+    background: #999;
+    color: #fff;
+    left: calc(50% - 45vw);
+    font-family: Sansation;
+    border-radius: 50px;
+    font-size: 20px;
+    transition: transform ease-in 0.1s;
+    margin-bottom: 20px;
+}
+#Salvar:active{
+    transform: scale(0.9);
+}
+
+
+.dotActive{
+    color: green;
+}
+.dotUnactive{
+    color: #444;
+}
+
+#dotsBox {
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    top: 450px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.Box {
+    height: 405px;
+    position: absolute;
+    top: 16px;
+    width: 90vw;
+    left: calc(50% - 45vw);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.MuscleBox {
+    height: 80px;
+    width: calc(100% - 6px);
+    border-radius: 50px;
+    border: solid 3px #999;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.ImageBox {
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    border-radius: 20px;
+    border: solid 2px #999;
+    position: relative;
+    top: 3.25px;
+    left: 30px;
+}
+
+.Imagem {
+    width: auto;
+    height: auto;
+    max-width: 95%;
+    max-height: 95%;
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+}
+
+.MuscleName {
+    font-family: Sone;
+    position: relative;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: calc(55% - 74px);
+    transform: translateX(-50%);
+    font-size: 20px;
+    pointer-events: none;
+}

@@ -1,0 +1,101 @@
+@font-face {
+    font-family: Sone;
+    src: url("font/Sone.otf");
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+html{
+	width: 100%;
+	height: 100%;
+	margin: 0%;
+	padding: 0%;
+}
+body{
+	width: 100%;
+	height: 90%;
+	margin: 0%;
+	padding: 0%;
+  overflow-y: visible;
+}
+
+.content-mobile{
+    width: 100%;
+    height: 100vh;
+}
+
+
+/*Top Bar*/
+.topbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #007400;
+    display:flex;
+}
+
+#voltar {
+    font-family: verdana;
+    font-size: 40px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-top: -13px;
+}
+#area {
+    height:auto;
+    width:100%;
+    position:absolute;
+    overflow:visible;
+    top:10%;
+}
+
+#Nome {
+    font-size: 27px;
+    font-family: Sone;
+    margin-left: 10px;
+    display: block;
+    margin-top: 3px;
+    color: #fff;
+}
+video {
+    width: 100vw;
+    height: 56.25vw;
+    background-color: #000;
+}
+#Imagem {
+
+    float: right;
+    width: 40vw;
+    margin: 20px;
+    margin-top: -40px;
+    z-index: 2;
+    margin-bottom: 10px;
+
+}
+#Reps {
+    display: block;
+    text-align: justify;
+    font-family: Sone;
+    font-size: 13.3px;
+    color: #222;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    line-height: 120%;
+}
+#Instr {
+    width: 56vw;
+    font-family: Sone;
+    font-size: 17px;
+    text-align: center;
+}
+#DivTopo {
+    display: flex;
+    padding-left: 3%;
+    align-items: center;
+}
