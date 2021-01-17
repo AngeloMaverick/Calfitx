@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+	<title>Cadastro</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/loginstyle.css">
+</head>
+<body onload="load()" id="Cadastro">
+	 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        function load(){
+            document.getElementById("masc").checked = false;
+            document.getElementById("fem").checked = false;
+        }
+
+        function isNumberKey(evt){
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+            {
+                return false;
+            }
+            else
+            {
+                return true;                
+            }
+
+        }
+
+        $(document).ready(function() {
+            var url = "https://mattfontes.000webhostapp.com/php-code/auth.php";
+            
+            $("#btnEnviar").click(function(){
+                var name= $.trim($("#nick").val());
+                var nome= $.trim($("#name").val());
+                var email= $.trim($("#email").val());
+                var password= $.trim($("#password").val());
+                var idade= $.trim($("#idade").val());
+                var sexo;
+
+                if($.trim(name).length > 0 && $.trim(nome).length > 0 && $.trim(email).length > 0 && $.trim(password).length > 0 && $.trim(idade).length > 0)
+                {
+                    if(document.getElementById("masc").checked)
+                {
+                    sexo = "M";
+                    var dataString="name="+name+"&nome="+nome+"&email="+email+"&password="+password+"&idade="+idade+"&sexo="+sexo+"&register=";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    success: function(data){
+                        if(data == "success")
+                            window.location.href = "login.html";
+                        else if( data == "exist")
+                        {
+                            document.getElementById("errormsg").style.display = "block";
+                            document.getElementById("errormsg").textContent="Nome de Login Não disponível"; 
+                        }
+
+                        else if(data == "error")
+                            alert("Register Failed");
+                    }
+                });
+                }
+                else
+                {
+                    if(document.getElementById("fem").checked)
+                    {
+                        sexo = "F";
+                        var dataString="name="+name+"&nome="+nome+"&email="+email+"&password="+password+"&idade="+idade+"&sexo="+sexo+"&register=";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    success: function(data){
+                        if(data == "success")
+                            window.location.href = "login.html";
+                        else if( data == "exist")
+                        {
+                            document.getElementById("errormsg").style.display = "block";
+                            document.getElementById("errormsg").textContent="Nome de Login Não disponível"; 
+                        }
+                        else if(data == "error")
+                            alert("Register Failed");
+                    }
+                });
+                    }
+                    else
+                    {
+                        document.getElementById("errormsg").style.display = "block";
+                        document.getElementById("errormsg").textContent="Selecione um sexo";
+                    }
+                }
+                }
+                else
+                {
+                    document.getElementById("errormsg").style.display = "block";
+                    document.getElementById("errormsg").textContent="Preencha todos os campos";
+                }
+
+                
+                
+
+                
+
+            });
+
+            $("#btnVoltar").click(function(){
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+    <p id="btnVoltar"><</p>
+    <br>
+	<img id="imgcentro" src="img/icon.png">
+	<p id="BigName">CALFITX</p>
+    <center>
+        <small id="errormsg">Hello</small>
+    </center>
+		<p class="gPass">Login</p>
+		<input id="nick" type="text" placeholder="Insira um login">
+		<hr class="line">
+
+        <p class="gPass">Nome</p>
+        <input id="name" type="text" placeholder="Insira o seu nome">
+        <hr class="line">
+        
+        <p class="gPass">Email</p>
+        <input id="email" type="text" placeholder="exemplo@dominio.com">
+        <hr class="line">
+
+		<p class="gPass">Senha</p>
+		<input id="password" type="password" placeholder="••••••••">	
+		<hr class="line">
+
+        <p class="gPass">Idade</p>
+        <input id="idade" type="text" placeholder="Insira sua idade" onkeypress="return isNumberKey(event)">
+        <hr class="line">
+
+        <p class="gPass">Sexo</p>
+        <div id="sexbox">
+        <label class="container">Masculino
+            <input id="masc" type="radio" name="sex">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Feminino
+            <input id="fem" type="radio" name="sex">
+            <span class="checkmark"></span>
+        </label>
+        </div>
+
+
+        <br><br>
+
+		<button id="btnEnviar">Cadastrar</button>
+		<br>
+
+
+	<p id="rtxt2">Calfitx.™ - 2018 - Todos os direitos reservados.</p>
+</body>
+</html>

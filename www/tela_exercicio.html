@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Exercicio</title>
+  <link href="css/puxostyle.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var exe = localStorage.getItem("ExercicioNome");
+      var paragraph = document.getElementById("Nome");
+      var text = document.createTextNode(exe);
+
+      paragraph.appendChild(text);
+      $.getJSON("http://mattfontes.000webhostapp.com/php-code/PuxarExercicio.php", {
+        Exe: exe,
+      }, function(result) {
+        console.log(result);
+        $.each(result, function(i, field) {
+
+          var NomeExercicio = field.nm_exercicio;
+          var DescricaoExercicio = field.ds_exercicio;
+          var ImagemExercicio = field.ds_imagem;
+          var videoExercicio = field.ds_video;
+
+          var divx = document.createElement("div");
+          divx.id = 'ExercicioBox';
+          var img = document.createElement("img");
+          $.get(ImagemExercicio)
+            .done(function() {
+              img.setAttribute("src", ImagemExercicio);
+
+            })
+            .fail(function() {
+              img.setAttribute("src", "img/placeholder.png");
+            });
+
+
+          var video = document.getElementById("SourceAki");
+          video.setAttribute("src", videoExercicio);
+
+
+          img.className = 'ImgId';
+          img.id = 'Imagem';
+          var node2 = document.createElement("small");
+          node2.id = 'Reps';
+          divx.appendChild(img);
+          divx.appendChild(node2);
+          var element = document.getElementById("area");
+          element.appendChild(divx);
+          var txtDesc = document.createTextNode(DescricaoExercicio);
+          node2.appendChild(txtDesc);
+
+
+          var string = $("#Reps").text();
+          var usingBreak = string.replace("2", "<br>2");
+          $("#Reps").html(usingBreak);
+          string = usingBreak;
+          usingBreak = string.replace("3", "<br>3");
+          $("#Reps").html(usingBreak);
+          string = usingBreak;
+          usingBreak = string.replace("4", "<br>4");
+          $("#Reps").html(usingBreak);
+          string = usingBreak;
+          usingBreak = string.replace("5", "<br>5");
+          $("#Reps").html(usingBreak);
+          string = usingBreak;
+          usingBreak = string.replace("6", "<br>6");
+          $("#Reps").html(usingBreak);
+
+        });
+      });
+
+
+      $("#voltar").click(function() {
+        if (localStorage.getItem("UltimaPag") == "Treino") {
+          window.location.href = "tela_treino.html";
+        }
+        if (localStorage.getItem("UltimaPag") == "Criar") {
+          localStorage.setItem("NewTreino", "0");
+          window.location.href = "tela_criar.html";
+        }
+        if (localStorage.getItem("UltimaPag") == "Exercicios") {
+          window.location.href = "tela_exercicios.html";
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content-desktop">
+  </div>
+  <div class="content-mobile">
+    <div class="topbar">
+      <div id="DivTopo">
+        <a id="voltar">
+          <</a> <small id="Nome"></small>
+      </div>
+    </div>
+    <div id="area">
+      <div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;">
+        <iframe id="SourceAki" src="" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;">
+        </iframe>
+      </div>
+      <p id="Instr">Instrução</p>
+    </div>
+  </div>
+</body>
+
+</html>

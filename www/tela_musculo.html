@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Alterar Perfil</title>
+  <link href="css/musculostyle.css" rel="stylesheet">
+  <link href="css/font/all.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var abdomen = 0, peitoral = 0, ombro = 0, costas = 0, biceps = 0, triceps = 0, perna = 0;
+
+      $("#Abdomen").click(function(){
+        if(abdomen == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb");
+          abdomen = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          abdomen = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Peitoral").click(function(){
+        if(peitoral == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb");
+          peitoral = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          peitoral= 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Ombro").click(function(){
+        if(ombro == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb");
+          ombro = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          ombro = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Costas").click(function(){
+        if(costas == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb");
+          costas = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999");
+          $(this).css("background-color", "#e5e5e5");
+          costas = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Biceps").click(function(){
+        if(biceps == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb")
+          biceps = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          biceps = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Triceps").click(function(){
+        if(triceps == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb")
+          triceps = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          triceps = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Perna").click(function(){
+        if(perna == 0)
+        {
+          $(this).css("border-color", "rgb(43, 148, 39)");
+          $(this).css("background-color", "#bbb")
+          perna = 1;
+          $("#Salvar").css("background-color", "#257a22");
+        }
+        else {
+          $(this).css("border-color", "#999")
+          $(this).css("background-color", "#e5e5e5");
+          perna = 0;
+          if(abdomen == 0 && peitoral == 0 &&  ombro == 0 && costas == 0 &&  biceps == 0 && triceps == 0 && perna == 0)
+          {
+            $("#Salvar").css("background-color", "#999");
+          }
+        }
+      });
+
+      $("#Salvar").click(function(){
+        if(abdomen == 1 || peitoral == 1 || ombro == 1 || costas == 1|| biceps == 1 || triceps == 1 || perna == 1)
+	 			{
+           		localStorage.setItem('abdomen', abdomen);
+           		localStorage.setItem('peitoral', peitoral);
+           		localStorage.setItem('ombro', ombro);
+           		localStorage.setItem('costas', costas);
+           		localStorage.setItem('biceps', biceps);
+           		localStorage.setItem('triceps', triceps);
+           		localStorage.setItem('perna', perna);
+           		localStorage.setItem("NewTreino", "1");
+							localStorage.setItem("Anterior", "Musculo");
+           		window.location.href = "tela_criar.html";
+	 			}
+      });
+
+
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content-desktop">
+  </div>
+  <div class="content-mobile">
+    <div class="topbar">
+      <a id="voltar" href="tela_tempo.html">
+        <</a> <small id="txtTopo">Selecione os Músculos</small>
+    </div>
+    <div id="area">
+      <div class="Box">
+        <div class="MuscleBox" id="Abdomen">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/abdomen.png">
+          </div>
+          <span class="MuscleName">Abdomen</span>
+
+        </div>
+        <div class="MuscleBox" id="Peitoral">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/peitoral.png">
+          </div>
+          <span class="MuscleName">Peitoral</span>
+        </div>
+        <div class="MuscleBox" id="Ombro">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/ombro.png">
+          </div>
+          <span class="MuscleName">Ombro</span>
+        </div>
+        <div class="MuscleBox" id="Costas">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/costas.png">
+          </div>
+          <span class="MuscleName">Costas</span>
+        </div>
+        <div class="MuscleBox" id="Biceps">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/biceps.png">
+          </div>
+          <span class="MuscleName">Biceps</span>
+        </div>
+        <div class="MuscleBox" id="Triceps">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/triceps.png">
+          </div>
+          <span class="MuscleName">Triceps</span>
+        </div>
+        <div class="MuscleBox" id="Perna">
+          <div class="ImageBox">
+            <img class="Imagem" src="img/perna.png">
+          </div>
+          <span class="MuscleName">Perna</span>
+        </div>
+      </div>
+      <div id="dotsBox">
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotActive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+      </div>
+
+      <button id="Salvar">Proximo</button>
+    </div>
+  </div>
+</body>
+
+</html>

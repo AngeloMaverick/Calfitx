@@ -1,0 +1,202 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Tela Alterar Perfil</title>
+ 	<link href="css/alterarPerfilstyle.css" rel="stylesheet">
+ 	<script type="text/javascript" src="js/jquery.js"></script>
+ 	<script type="text/javascript">
+	 	$(document).ready(function(){
+	 		var id = localStorage.getItem('id');
+	 		var url = "http://mattfontes.000webhostapp.com/php-code/CarregarPerfil.php";
+	 		$.getJSON(url,
+            {
+                id: id,
+            }
+            ,function(result) {
+                console.log(result);
+                $.each(result, function(i, field) {
+
+                    var Nome = field.nm_usuario;
+                    var Login = field.nm_login;
+                    var Email = field.ds_email;
+                    var Idade = field.dt_idade;
+                    var Tipo = field.tp_perfil;
+                    var Sexo = field.ds_sexo;
+
+                    var nomeUsuarioB = document.getElementById('nome');
+
+                    var loginB = document.getElementById('login');
+
+                    var emailB = document.getElementById('email');
+
+                    var idadeB = document.getElementById('idade');
+
+                    var tipoB = document.getElementById('tipo');
+
+                    var sexoB = document.getElementById('sexo');
+
+
+                    var element = document.getElementById("area");
+                    element.appendChild(nomeUsuarioB);
+                    element.appendChild(loginB);
+                    element.appendChild(emailB);
+                    element.appendChild(idadeB);
+                    element.appendChild(sexoB);
+                    element.appendChild(tipoB);
+
+                    nomeUsuarioB.value = Nome;
+
+                    loginB.value = Login;
+
+                    emailB.value = Email;
+
+                    idadeB.value = Idade;
+
+                    if(Tipo == 1)
+                    {
+                    	tipoB.value = "Inicial";
+                    }
+                    if(Tipo == 2)
+                    {
+                    	tipoB.value = "Não Pagante";
+                    }
+                    if(Tipo == 3)
+                    {
+                    	tipoB.value = "Pagante";
+                    }
+
+
+
+                    if(Sexo == "M")
+                    {
+                    	sexoB.value =  "Masculino";
+                    }
+                    else
+                    {
+                    	sexoB.value = "Feminino";
+                    }
+                });
+            });
+
+
+            $("#nome").click(function(){
+                $("#nome").css("border-color", "rgb(43, 148, 39)");
+                $("#login").css("border-color", "#999");
+                $("#email").css("border-color", "#999");
+                $("#idade").css("border-color", "#999");
+                $("#sexo").css("border-color", "#999");
+                $("#tipo").css("border-color", "#999");
+            });
+            $("#login").click(function(){
+                $("#nome").css("border-color", "#999");
+                $("#login").css("border-color", "rgb(43, 148, 39)");
+                $("#email").css("border-color", "#999");
+                $("#idade").css("border-color", "#999");
+                $("#sexo").css("border-color", "#999");
+                $("#tipo").css("border-color", "#999");
+            });
+            $("#email").click(function(){
+                $("#nome").css("border-color", "#999");
+                $("#login").css("border-color", "#999");
+                $("#email").css("border-color", "rgb(43, 148, 39)");
+                $("#idade").css("border-color", "#999");
+                $("#sexo").css("border-color", "#999");
+                $("#tipo").css("border-color", "#999");
+            });
+            $("#idade").click(function(){
+                $("#nome").css("border-color", "#999");
+                $("#login").css("border-color", "#999");
+                $("#email").css("border-color", "#999");
+                $("#idade").css("border-color", "rgb(43, 148, 39)");
+                $("#sexo").css("border-color", "#999");
+                $("#tipo").css("border-color", "#999");
+            });
+            $("#sexo").click(function(){
+                $("#nome").css("border-color", "#999");
+                $("#login").css("border-color", "#999");
+                $("#email").css("border-color", "#999");
+                $("#idade").css("border-color", "#999");
+                $("#sexo").css("border-color", "rgb(43, 148, 39)");
+                $("#tipo").css("border-color", "#999");
+            });
+            $("#tipo").click(function(){
+                $("#nome").css("border-color", "#999");
+                $("#login").css("border-color", "#999");
+                $("#email").css("border-color", "#999");
+                $("#idade").css("border-color", "#999");
+                $("#sexo").css("border-color", "#999");
+                $("#tipo").css("border-color", "rgb(43, 148, 39)");
+            });
+
+
+	 		$("#Sair").click(function(){
+                localStorage.setItem('active', 0);
+                window.location.href = "login.html";
+            });
+
+
+
+            $("#Salvar").click(function(){
+
+                var nome = document.getElementById("nome").value;
+                var login = document.getElementById("login").value;
+                var email = document.getElementById("email").value;
+                var idade = document.getElementById("idade").value;
+                var sexo = document.getElementById("sexo").value;
+
+                var dataString = "nome="+nome+"&login="+login+"&email="+email+"&idade="+idade+"&sexo="+sexo+"&id="+id+"&update=";
+                alert(dataString);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://mattfontes.000webhostapp.com/php-code/AlterarPerfil.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    success: function(data){
+                        if(data == "success") {
+                            window.location.href = "tela_perfil.html";
+                        }
+                        else if(data == "error")
+                        {
+                            alert("Erro ao Atualizar Informação");
+                        }
+                    }
+                });
+            });
+	 	});
+    </script>
+ </head>
+ <body>
+ 	<div class="content-desktop">
+ 	</div>
+ 	<div class="content-mobile">
+ 		<div class="topbar">
+ 			<a id="voltar" href="tela_perfil.html"><</a>
+ 			<small id="txtTopo">Alterar Informação</small>
+ 		</div>
+ 		<div id="area">
+            <span id="nomeString">Nome</span>
+            <input type="text" id="nome">
+
+            <span id="loginString">Login</span>
+		    <input type="text" id="login">
+
+            <span id="emailString">Email</span>
+		    <input type="text" id="email">
+
+            <span id="idadeString">Idade</span>
+		    <input type="text" id="idade">
+
+            <span id="sexoString">Sexo</span>
+		    <input type="text" id="sexo">
+
+            <span id="tipoString">Tipo de Usuário</span>
+		    <input type="text" id="tipo" readonly="true">
+
+		    <button id="Salvar">Salvar</button>
+		</div>
+ 	</div>
+ </body>
+ </html>

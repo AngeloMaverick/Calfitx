@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Tipo de Treino</title>
+  <link href="css/movimentostyle.css" rel="stylesheet">
+  <link href="css/font/all.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var movimento = 0;
+      var url = "http://mattfontes.000webhostapp.com/php-code/CarregarMovimentos.php";
+      var i = 0;
+      $.getJSON(url, {}, function(result) {
+        console.log(result);
+        $.each(result, function(i, field) {
+
+          var nome = field.nm_movimento;
+          var imagem = field.ds_imagem;
+          var codigo = field.cd_movimento;
+
+
+          var divx = document.createElement("div");
+          divx.className = 'MoveBox';
+          divx.id = 'Move' + [i];
+
+
+
+          var node = document.createElement("span");
+          node.className = 'Nome';
+
+          var node2 = document.createElement("span");
+          node2.className = "Codigo";
+
+
+
+
+          var img = document.createElement("img");
+          $.get("img/" + imagem + ".png")
+            .done(function() {
+              img.setAttribute("src", "img/" + imagem + ".png");
+            })
+            .fail(function() {
+              img.setAttribute("src", "img/placeholder.png");
+            });
+          img.setAttribute("width", "120vh");
+          img.setAttribute("height", "72vh");
+          img.className = 'Imagem';
+
+
+          divx.appendChild(img);
+          divx.appendChild(node);
+          divx.appendChild(node2);
+          var element = document.getElementById("ExercisesBox");
+          element.appendChild(divx);
+
+
+          var txtNome = document.createTextNode(nome);
+          node.appendChild(txtNome);
+          var txtCodigo = document.createTextNode(codigo);
+          node2.appendChild(txtCodigo);
+
+          i++;
+        });
+      });
+
+      $("#Salvar").click(function() {
+        localStorage.setItem("Movimento", movimento);
+        localStorage.setItem("Anterior", "Movimento");
+        window.location.href = "tela_criar.html";
+      });
+
+
+      $(document).on('click', ".MoveBox", (function() {
+        var status = this.id;
+        movimento = $("#" + status).children(".Codigo").text();
+        $(".MoveBox").css("border-color", "#999");
+        $(".MoveBox").css("background", "none");
+        $(this).css("border-color", "rgb(43, 148, 39)");
+        $(this).css("background", "#bbb");
+        $("#Salvar").css("background", "rgb(53, 148, 39)");
+      }));
+
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content-desktop">
+  </div>
+  <div class="content-mobile">
+    <div class="topbar">
+      <a id="voltar" href="tela_tempo.html"><</a>
+      <small id="txtTopo">Selecione o Movimento</small>
+    </div>
+    <div id="area">
+      <div id="ExercisesBox">
+
+      </div>
+      <div id="dotsBox">
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotActive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+      </div>
+
+      <button id="Salvar">Proximo</button>
+    </div>
+  </div>
+</body>
+
+</html>

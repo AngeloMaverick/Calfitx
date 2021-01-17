@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Alterar Perfil</title>
+  <link href="css/criarProgramastyle.css" rel="stylesheet">
+  <link href="css/font/all.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var id = localStorage.getItem('id');
+      var tipoPrograma = localStorage.getItem("tipoPrograma");
+      var tempoPrograma = localStorage.getItem("tempoPrograma");
+      if (tempoPrograma == 30) {
+        var selectedExercises = [" ", " ", " ", " "];
+      }
+      if (tempoPrograma == 45) {
+        var selectedExercises = [" ", " ", " ", " ", " "];
+      }
+      if (tempoPrograma == 60) {
+        var selectedExercises = [" ", " ", " ", " ", " ", " ", " "];
+      }
+      if (tempoPrograma == 90) {
+        var selectedExercises = [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "];
+      }
+
+      var i = 0;
+      var url = "http://mattfontes.000webhostapp.com/php-code/CarregarExerciciosCriarPrograma.php";
+      $.getJSON(url, {
+        tipo: tipoPrograma,
+      }, function(result) {
+        console.log(result);
+        $.each(result, function(i, field) {
+
+          var nomeExercicio = field.nm_exercicio;
+          var codExercicio = field.cd_exercicio;
+          var imgExercicio = field.ds_imagem;
+
+          var exerciseBox = document.createElement("div");
+          exerciseBox.className = "ExerciseBox";
+          exerciseBox.id = "ExerciseBox" + i;
+
+          var ImageBox = document.createElement("div");
+          ImageBox.className = "ImageBox";
+
+          var imagemExe = document.createElement("img");
+
+          $.get(imgExercicio)
+            .done(function() {
+              imagemExe.setAttribute("src", imgExercicio);
+
+            })
+            .fail(function() {
+              imagemExe.setAttribute("src", "img/placeholder.png");
+            });
+
+          imagemExe.className = 'ImagemExe';
+          imagemExe.id = 'ImagemExe' + i;
+
+          var nomeExe = document.createElement("span");
+          nomeExe.className = "NomeExe";
+          nomeExe.id = "NomeExe" + i;
+
+          nomeExe.appendChild(document.createTextNode(nomeExercicio));
+
+          var codExe = document.createElement("span");
+          codExe.className = "CodExe";
+          codExe.id = "CodExe" + i;
+
+          codExe.appendChild(document.createTextNode(codExercicio));
+
+
+          var Caxotao = document.getElementsByClassName("ExercisesBox")[0];
+
+          var numberBox = document.createElement("div");
+          numberBox.className = "NumberBox";
+          numberBox.id = "NumberBox" + i;
+
+          var number = document.createElement("span");
+          number.className = "Number";
+          number.id = "Number" + i;
+
+          numberBox.appendChild(number);
+
+          Caxotao.appendChild(exerciseBox);
+          ImageBox.appendChild(imagemExe);
+          exerciseBox.appendChild(ImageBox);
+          exerciseBox.appendChild(nomeExe);
+          exerciseBox.appendChild(codExe);
+          exerciseBox.appendChild(numberBox);
+
+          i++;
+        });
+      });
+
+
+
+      $(document).on('click', ".ExerciseBox", (function() {
+        var status = "#" + this.id;
+        if ($(status).css("background-color") == "rgb(221, 221, 221)") {
+
+          if (tempoPrograma == 30) {
+
+            if (selectedExercises[0] == " ") {
+              selectedExercises[0] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('1');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[1] == " ") {
+              selectedExercises[1] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('2');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[2] == " ") {
+              selectedExercises[2] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('3');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[3] == " ") {
+              selectedExercises[3] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('4');
+              $(status).find(".NumberBox").css("display", "block");
+              if(selectedExercises[0] != " " && selectedExercises[1] != " " && selectedExercises[2] != " " && selectedExercises[3] != " "){
+                $("#Salvar").css("background", "#257a22");
+              }
+            }
+          }
+          if (tempoPrograma == 45) {
+
+            if (selectedExercises[0] == " ") {
+              selectedExercises[0] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('1');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[1] == " ") {
+              selectedExercises[1] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('2');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[2] == " ") {
+              selectedExercises[2] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('3');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[3] == " ") {
+              selectedExercises[3] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('4');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[4] == " ") {
+              selectedExercises[4] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('5');
+              $(status).find(".NumberBox").css("display", "block");
+            }
+            if(selectedExercises[0] != " " && selectedExercises[1] != " " && selectedExercises[2] != " " && selectedExercises[3] != " " && selectedExercises[4] != " "){
+              $("#Salvar").css("background", "#257a22");
+            }
+          }
+          if (tempoPrograma == 60) {
+
+            if (selectedExercises[0] == " ") {
+              selectedExercises[0] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('1');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[1] == " ") {
+              selectedExercises[1] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('2');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[2] == " ") {
+              selectedExercises[2] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('3');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[3] == " ") {
+              selectedExercises[3] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('4');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[4] == " ") {
+              selectedExercises[4] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('5');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[5] == " ") {
+              selectedExercises[5] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('6');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[6] == " ") {
+              selectedExercises[6] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('7');
+              $(status).find(".NumberBox").css("display", "block");
+            }
+            if(selectedExercises[0] != " " && selectedExercises[1] != " " && selectedExercises[2] != " " && selectedExercises[3] != " " && selectedExercises[4] != " " && selectedExercises[5] != " " && selectedExercises[6] != " "){
+              $("#Salvar").css("background", "#257a22");
+            }
+          }
+          if (tempoPrograma == 90) {
+
+            if (selectedExercises[0] == " ") {
+              selectedExercises[0] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('1');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[1] == " ") {
+              selectedExercises[1] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('2');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[2] == " ") {
+              selectedExercises[2] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('3');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[3] == " ") {
+              selectedExercises[3] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('4');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[4] == " ") {
+              selectedExercises[4] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('5');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[5] == " ") {
+              selectedExercises[5] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('6');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[6] == " ") {
+              selectedExercises[6] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('7');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[7] == " ") {
+              selectedExercises[7] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('8');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[8] == " ") {
+              selectedExercises[8] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('9');
+              $(status).find(".NumberBox").css("display", "block");
+            } else if (selectedExercises[9] == " ") {
+              selectedExercises[9] = $(status).find(".CodExe").html();
+              $(status).css("border-color", "rgb(43, 148, 39)");
+              $(status).css("background", "#bbb");
+              $(status).find(".Number").html('10');
+              $(status).find(".NumberBox").css("display", "block");
+            }
+            if(selectedExercises[0] != " " && selectedExercises[1] != " " && selectedExercises[2] != " " && selectedExercises[3] != " " && selectedExercises[4] != " " && selectedExercises[5] != " " && selectedExercises[6] != " " && selectedExercises[7] != " " && selectedExercises[8] != " " && selectedExercises[9] != " "){
+              $("#Salvar").css("background", "#257a22");
+            }
+          }
+
+        } else {
+          if (selectedExercises[0] == $(status).find(".CodExe").html()) {
+            selectedExercises[0] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[1] == $(status).find(".CodExe").html()){
+            selectedExercises[1] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[2] == $(status).find(".CodExe").html()){
+            selectedExercises[2] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+          } else if(selectedExercises[3] == $(status).find(".CodExe").html()){
+            selectedExercises[3] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[4] == $(status).find(".CodExe").html()){
+            selectedExercises[4] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[5] == $(status).find(".CodExe").html()){
+            selectedExercises[5] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[6] == $(status).find(".CodExe").html()){
+            selectedExercises[6] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[7] == $(status).find(".CodExe").html()){
+            selectedExercises[7] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[8] == $(status).find(".CodExe").html()){
+            selectedExercises[8] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          } else if(selectedExercises[9] == $(status).find(".CodExe").html()){
+            selectedExercises[9] = " ";
+            $(status).css("border-color", "#999");
+            $(status).css("background-color", "rgb(221, 221, 221)");
+            $(status).find(".Number").html("");
+            $(status).find(".NumberBox").css("display", "none");
+            $("#Salvar").css("background", "#999");
+          }
+        }
+
+
+
+      }));
+
+
+      $("#Salvar").click(function(){
+        if($("#Salvar").css("background-color") == "rgb(153, 153, 153)"){
+
+        }
+        else {
+
+          var dataString = "name=" + localStorage.getItem("nomePrograma") + "&tipo=" + tipoPrograma + "&tempo=" + tempoPrograma + "&exe1=" + selectedExercises[0] + "&exe2=" + selectedExercises[1] + "&exe3=" + selectedExercises[2] + "&exe4=" + selectedExercises[3] + "&exe5=" + selectedExercises[4];
+          dataString+= "&exe6=" + selectedExercises[5] + "&exe7=" + selectedExercises[6] + "&exe8=" + selectedExercises[7] + "&exe9=" + selectedExercises[8] + "&exe10=" + selectedExercises[9] + "&cadastro=" + localStorage.getItem("id") + "&desc=" + localStorage.getItem("descPrograma");
+
+          console.log(dataString);
+
+          $.ajax({
+              type: "POST",
+              url: "http://mattfontes.000webhostapp.com/php-code/CriarPrograma.php",
+              data: dataString,
+              crossDomain: true,
+              cache: false,
+
+              success: function(data) {
+                console.log(data);
+                  if (data == "Error") {
+                      alert("Erro ao Criar Programa");
+                  }
+                  else {
+                    window.location.href = "tela_programas.html";
+                  }
+              }
+
+          });
+
+        }
+
+
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content-desktop">
+  </div>
+  <div class="content-mobile">
+    <div class="topbar">
+      <a id="voltar" href="tela_criarPrograma3.html">
+        <</a> <small id="txtTopo">Exercicios do Programa</small>
+    </div>
+    <div id="area">
+      <div class="ExercisesBox">
+
+      </div>
+      <div id="dotsBox">
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotActive"></i>
+      </div>
+
+      <button id="Salvar">Proximo</button>
+    </div>
+  </div>
+</body>
+
+</html>

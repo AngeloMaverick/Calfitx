@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>Tela Criar Treino</title>
+	 <link href="css/criarstyle.css" rel="stylesheet">
+   <link href="css/font/all.css" rel="stylesheet">
+ 	<script type="text/javascript" src="js/jquery.js"></script>
+ 	<script type="text/javascript">
+        function load(){
+            document.getElementById("PopUp").style.display = "none";
+        }
+ 		$(document).ready(function() {
+
+            var i = 0;
+            var Tipo = localStorage.getItem('Tipo');
+            var Tempo = localStorage.getItem('Tempo');
+            var abdomen = localStorage.getItem('abdomen');
+            var peitoral = localStorage.getItem('peitoral');
+            var ombro = localStorage.getItem('ombro');
+            var costas = localStorage.getItem('costas');
+            var biceps = localStorage.getItem('biceps');
+            var triceps = localStorage.getItem('triceps');
+            var perna = localStorage.getItem('perna');
+            var movimento = localStorage.getItem("Movimento");
+            var exes = [null,null,null,null,null,null,null,null,null,null];
+            var nomeExercicios = [null,null,null,null,null,null,null,null,null,null];
+            var repExercicios = [null,null,null,null,null,null,null,null,null,null];
+            var imgExercicios = [null,null,null,null,null,null,null,null,null,null];
+            var i = 0;
+            var dados;
+            if(Tipo == 1 || Tipo == 2)
+            {
+                var url= "http://mattfontes.000webhostapp.com/php-code/CriarTreino.php";
+            }
+            if(Tipo == 3)
+            {
+                var url= "http://mattfontes.000webhostapp.com/php-code/CriarTreinoMovimento.php";
+            }
+            if(localStorage.getItem("NewTreino") == "1")
+            {
+
+                $.getJSON(url,
+                {
+                    tipo: Tipo,
+                    tempo: Tempo,
+                    Abdomen: abdomen,
+                    Peitoral: peitoral,
+                    Ombro: ombro,
+                    Costas: costas,
+                    Biceps: biceps,
+                    Triceps: triceps,
+                    Perna: perna,
+                    movimento: movimento,
+                }
+                 ,function(result) {
+                    console.log(result);
+                    $.each(result, function(i, field) {
+                        var title;
+                        var duration = field.nm_exercicio;
+                        var price = field.ds_imagem;
+                        if(Tempo == "30")
+                        {
+                            title = field.ds_rep_30;
+                        }
+                        if(Tempo == "45")
+                        {
+                            title = field.ds_rep_45;
+                        }
+                        if(Tempo == "60")
+                        {
+                            title = field.ds_rep_60;
+                        }
+                        if(Tempo == "90")
+                        {
+                            title = field.ds_rep_90;
+                        }
+
+
+                        /*var para = document.createElement("p");
+                        var node = document.createTextNode("Nome: " + duration);
+                        para.appendChild(node);
+                        var element = document.getElementById("area");
+                        element.appendChild(para);
+                        para = document.createElement("p");
+                        node = document.createTextNode("Repetições: " + title);
+*/                      exes[i] = field.cd_exercicio;
+                        nomeExercicios[i] = duration;
+                        repExercicios[i] = title;
+                        imgExercicios[i] = price;
+                        i++;
+                        var divx = document.createElement("div");
+                        divx.id = 'ExercicioBox';
+                        var img = document.createElement("img");
+                        $.get(price)
+                        .done(function() {
+                            img.setAttribute("src", price);
+
+                        })
+                        .fail(function() {
+                            img.setAttribute("src", "img/placeholder.png");
+                        });
+                        img.className = 'ImgId';
+                        img.id = 'Imagem' + [i];
+                        i++;
+
+                        var node = document.createElement("span");
+                        node.className = 'Nome';
+                        var node2 = document.createElement("small");
+                        node2.className = 'Reps';
+                        divx.appendChild(img);
+                        divx.appendChild(node);
+                        divx.appendChild(node2);
+                        var element = document.getElementById("ExercisesBox");
+                        element.appendChild(divx);
+
+
+                        var txtNome = document.createTextNode(duration);
+                        node.appendChild(txtNome);
+                        var txtReps = document.createTextNode(title);
+                        node2.appendChild(txtReps);
+                        //$("#listview").append("<a class='item' href='form.html?&title=" + title + "&duration=" + duration + + "&price=" + price + "'><h2>" + title + " </h2><p>" + duration + "</p><p>" + price + "</p></a>");
+                    });
+                    localStorage.setItem("Exe1", nomeExercicios[0]);
+
+                    localStorage.setItem("Exe2", nomeExercicios[1]);
+                    localStorage.setItem("Exe3", nomeExercicios[2]);
+                    localStorage.setItem("Exe4", nomeExercicios[3]);
+                    localStorage.setItem("Exe5", nomeExercicios[4]);
+                    localStorage.setItem("Exe6", nomeExercicios[5]);
+                    localStorage.setItem("Exe7", nomeExercicios[6]);
+                    localStorage.setItem("Exe8", nomeExercicios[7]);
+                    localStorage.setItem("Exe9", nomeExercicios[8]);
+                    localStorage.setItem("Exe10", nomeExercicios[9]);
+                    localStorage.setItem("Rep1", repExercicios[0]);
+                    localStorage.setItem("Rep2", repExercicios[1]);
+                    localStorage.setItem("Rep3", repExercicios[2]);
+                    localStorage.setItem("Rep4", repExercicios[3]);
+                    localStorage.setItem("Rep5", repExercicios[4]);
+                    localStorage.setItem("Rep6", repExercicios[5]);
+                    localStorage.setItem("Rep7", repExercicios[6]);
+                    localStorage.setItem("Rep8", repExercicios[7]);
+                    localStorage.setItem("Rep9", repExercicios[8]);
+                    localStorage.setItem("Rep10", repExercicios[9]);
+                    localStorage.setItem("img1", imgExercicios[0]);
+                    localStorage.setItem("img2", imgExercicios[1]);
+                    localStorage.setItem("img3", imgExercicios[2]);
+                    localStorage.setItem("img4", imgExercicios[3]);
+                    localStorage.setItem("img5", imgExercicios[4]);
+                    localStorage.setItem("img6", imgExercicios[5]);
+                    localStorage.setItem("img7", imgExercicios[6]);
+                    localStorage.setItem("img8", imgExercicios[7]);
+                    localStorage.setItem("img9", imgExercicios[8]);
+                    localStorage.setItem("img10", imgExercicios[9]);
+                    localStorage.setItem("Cd1", exes[0]);
+                    localStorage.setItem("Cd2", exes[1]);
+                    localStorage.setItem("Cd3", exes[2]);
+                    localStorage.setItem("Cd4", exes[3]);
+                    localStorage.setItem("Cd5", exes[4]);
+                    localStorage.setItem("Cd6", exes[5]);
+                    localStorage.setItem("Cd7", exes[6]);
+                    localStorage.setItem("Cd8", exes[7]);
+                    localStorage.setItem("Cd9", exes[8]);
+                    localStorage.setItem("Cd10", exes[9]);
+                });
+
+
+
+
+            }
+            else
+            {
+
+
+
+
+                nomeExercicios[0] = localStorage.getItem("Exe1");
+                nomeExercicios[1] = localStorage.getItem("Exe2");
+                nomeExercicios[2] = localStorage.getItem("Exe3");
+                nomeExercicios[3] = localStorage.getItem("Exe4");
+                nomeExercicios[4] = localStorage.getItem("Exe5");
+                nomeExercicios[5] = localStorage.getItem("Exe6");
+                nomeExercicios[6] = localStorage.getItem("Exe7");
+                nomeExercicios[7] =  localStorage.getItem("Exe8");
+                nomeExercicios[8] = localStorage.getItem("Exe9");
+                nomeExercicios[9] = localStorage.getItem("Exe10");
+                repExercicios[0] = localStorage.getItem("Rep1");
+                repExercicios[1] = localStorage.getItem("Rep2");
+                repExercicios[2] = localStorage.getItem("Rep3");
+                repExercicios[3] = localStorage.getItem("Rep4");
+                repExercicios[4] = localStorage.getItem("Rep5");
+                repExercicios[5] = localStorage.getItem("Rep6");
+                repExercicios[6] = localStorage.getItem("Rep7");
+                repExercicios[7] = localStorage.getItem("Rep8");
+                repExercicios[8] = localStorage.getItem("Rep9");
+                repExercicios[9] = localStorage.getItem("Rep10");
+                imgExercicios[0] = localStorage.getItem("img1");
+                imgExercicios[1] = localStorage.getItem("img2");
+                imgExercicios[2] = localStorage.getItem("img3");
+                imgExercicios[3] = localStorage.getItem("img4");
+                imgExercicios[4] = localStorage.getItem("img5");
+                imgExercicios[5] = localStorage.getItem("img6");
+                imgExercicios[6] = localStorage.getItem("img7");
+                imgExercicios[7] = localStorage.getItem("img8");
+                imgExercicios[8] = localStorage.getItem("img9");
+                imgExercicios[9] = localStorage.getItem("img10");
+                exes[0] = localStorage.getItem("Cd1");
+                exes[1] = localStorage.getItem("Cd2");
+                exes[2] = localStorage.getItem("Cd3");
+                exes[3] = localStorage.getItem("Cd4");
+                exes[4] = localStorage.getItem("Cd5");
+                exes[5] = localStorage.getItem("Cd6");
+                exes[6] = localStorage.getItem("Cd7");
+                exes[7] = localStorage.getItem("Cd8");
+                exes[8] = localStorage.getItem("Cd9");
+                exes[9] = localStorage.getItem("Cd10");
+
+                var contCont;
+                        if(Tempo == "30")
+                        {
+                            contCont = 3;
+                        }
+                        if(Tempo == "45")
+                        {
+                            contCont = 4;
+                        }
+                        if(Tempo == "60")
+                        {
+                            contCont = 6;
+                        }
+                        if(Tempo == "90")
+                        {
+                            contCont = 9;
+                        }
+
+                        for(var z = 0; z <= contCont; z++)
+                        {
+                            var divx = document.createElement("div");
+                            divx.id = 'ExercicioBox';
+                            var img = document.createElement("img");
+                            img.setAttribute("src", imgExercicios[z]);
+                            img.setAttribute("width", "120vh");
+                            img.setAttribute("height", "72vh");
+                            img.className = 'ImgId';
+                            img.id = 'Imagem' + [z];
+
+                            var node = document.createElement("span");
+                            node.className = 'Nome';
+                            var node2 = document.createElement("small");
+                            node2.className = 'Reps';
+                            divx.appendChild(img);
+                            divx.appendChild(node);
+                            divx.appendChild(node2);
+                            var element = document.getElementById("ExercisesBox");
+                            element.appendChild(divx);
+
+
+                            var txtNome = document.createTextNode(nomeExercicios[z]);
+                            node.appendChild(txtNome);
+                            var txtReps = document.createTextNode(repExercicios[z]);
+                            node2.appendChild(txtReps);
+                        }
+            }
+
+
+            $(document).on('click', ".ImgId",$.proxy(function(event) {
+                var status = $(event.target).attr('id');
+                localStorage.setItem("ExercicioNome" ,($("#" + status).siblings("#Nome").text()));
+                localStorage.setItem("UltimaPag", "Criar");
+                //alert($("#" + status).siblings("#Nome").text());
+                window.location.href = "tela_exercicio.html";
+            }, this));
+
+
+            $("#btnCancel").click(function(){
+                document.getElementById("PopUp").style.display = "none";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+                var i;
+                for (i = 0; i < document.getElementsByClassName("ImgId").length; i++) {
+                    document.getElementsByClassName("ImgId")[i].style.filter = "brightness(100%)";
+                }
+            });
+
+
+            $("#voltar").click(function(){
+                if(localStorage.getItem("Anterior") == "Musculo")
+                {
+                  window.location.href = "tela_musculo.html";
+                }
+                if(localStorage.getItem("Anterior") == "Movimento")
+                {
+                  window.location.href = "tela_movimento.html";
+                }
+            });
+
+
+            $("#btnSave").click(function() {
+                var name = $("#txtNome").val();
+                var cadastro = localStorage.getItem('id');
+                var exe1 = exes[0];
+                var exe2 = exes[1];
+                var exe3 = exes[2];
+                var exe4 = exes[3];
+                var exe5 = exes[4];
+                var exe6 = exes[5];
+                var exe7 = exes[6];
+                var exe8 = exes[7];
+                var exe9 = exes[8];
+                var exe10 = exes[9];
+                var dataString = "name=" + name + "&Tipo=" + Tipo + "&Tempo=" + Tempo + "&exe1=" + exe1 + "&exe2=" + exe2 + "&exe3=" + exe3 + "&exe4=" + exe4 + "&exe5=" + exe5 + "&exe6=" + exe6 + "&exe7=" + exe7 + "&exe8=" + exe8 + "&exe9=" + exe9 + "&exe10=" + exe10 + "&cadastro=" + cadastro + "&insert=";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://mattfontes.000webhostapp.com/php-code/SalvarTreino.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+
+                        success: function(data) {
+                            if (data == "success") {
+                                window.location.href = "tela_principal.html";
+                            } else if (data == "error") {
+                                alert("Erro ao Salvar Treino");
+                            }
+                        }
+
+                    });
+            });
+
+        });
+
+        function openPupUp(){
+            var popy = document.getElementById("PopUp").style.display;
+            if(popy == "none")
+            {
+                document.getElementById("PopUp").style.display = "block";
+                document.getElementsByTagName("body")[0].style.background = "rgba(0,0,0,0.3)";
+                document.getElementById("Salvar").style.filter = "brightness(80%)";
+                var i;
+                for (i = 0; i < document.getElementsByClassName("ImgId").length; i++) {
+                    document.getElementsByClassName("ImgId")[i].style.filter = "brightness(80%)";
+                }
+            }
+            else
+            {
+                document.getElementById("PopUp").style.display = "none";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+                document.getElementById("Salvar").style.filter = "brightness(100%)";
+                var i;
+                for (i = 0; i < document.getElementsByClassName("ImgId").length; i++) {
+                    document.getElementsByClassName("ImgId")[i].style.filter = "brightness(100%)";
+                }
+            }
+        }
+
+
+
+ 	</script>
+</head>
+<body onload="load()">
+	<div class="content-desktop">
+ 	</div>
+ 	<div class="content-mobile">
+ 		<div class="topbar">
+ 			<a id="voltar"><</a>
+ 			<small id="txtTopo">Verifique seu treino</small>
+ 		</div>
+ 		<div id="area">
+      <div id="ExercisesBox">
+
+      </div>
+      <div id="dotsBox">
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotActive"></i>
+      </div>
+      <button id="Salvar" onclick="openPupUp()">Continuar</button>
+            <div id="PopUp">
+                <small id="TxtBox">Insira um nome<br>para seu treino</small>
+                <input type="text" id="txtNome">
+                <hr id="linhatxt">
+                <button id="btnCancel">Cancelar</button>
+                <button id="btnSave">Salvar</button>
+            </div>
+		</div>
+ 	</div>
+
+</body>
+</html>

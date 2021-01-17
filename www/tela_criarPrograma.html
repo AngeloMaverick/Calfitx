@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <title>Tela Alterar Perfil</title>
+ <link href="css/criarProgramastyle.css" rel="stylesheet">
+ <link href="css/font/all.css" rel="stylesheet">
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript">
+   $(document).ready(function(){
+     var id = localStorage.getItem('id');
+
+     var url = "http://mattfontes.000webhostapp.com/php-code/CarregarPerfil.php";
+     $.getJSON(url,
+           {
+               id: id,
+           }
+           ,function(result) {
+               console.log(result);
+               $.each(result, function(i, field) {
+
+                   var Login = field.nm_login;
+
+                   var nomeUsuarioB = document.getElementById('criador');
+
+                   var element = document.getElementById("area");
+
+                   element.appendChild(nomeUsuarioB);
+
+                   nomeUsuarioB.value = Login;
+
+
+               });
+           });
+
+
+           $("#nome").click(function(){
+               $("#nome").css("border-color", "rgb(43, 148, 39)");
+               $("#desc").css("border-color", "#999");
+           });
+           $("#desc").click(function(){
+               $("#nome").css("border-color", "#999");
+               $("#desc").css("border-color", "rgb(43, 148, 39)");
+           });
+
+           $("#Salvar").click(function(){
+             if($("#nome").val().trim().length > 0 &&  $("#desc").val().trim().length > 0)
+             {
+               localStorage.setItem("nomePrograma", $("#nome").val());
+               localStorage.setItem("descPrograma", $("#desc").val());
+               window.location.href = "tela_criarPrograma2.html";
+             }
+
+           });
+
+
+
+           $(document).keyup(function(){
+              if($("#nome").val().trim().length > 0 &&  $("#desc").val().trim().length > 0)
+              {
+                $("#Salvar").css("background", "#257a22");
+              }
+              else {
+                $("#Salvar").css("background", "#999");
+              }
+           });
+
+   });
+   </script>
+</head>
+<body>
+ <div class="content-desktop">
+ </div>
+ <div class="content-mobile">
+   <div class="topbar">
+     <a id="voltar" href="tela_programas.html"><</a>
+     <small id="txtTopo">Criar Programa</small>
+   </div>
+   <div id="area">
+           <span id="nomeString">Nome</span>
+           <input type="text" id="nome" maxlength="25">
+
+           <span id="descString">Descrição</span>
+           <textarea id="desc" name="desc" rows="8" cols="80" maxlength="500"></textarea>
+
+           <span id="criadorString">Criador</span>
+       <input type="text" id="criador" readonly="true">
+
+       <div id="dotsBox">
+          <i class="fas fa-circle dotActive"></i>
+          <i class="fas fa-circle dotUnactive"></i>
+          <i class="fas fa-circle dotUnactive"></i>
+          <i class="fas fa-circle dotUnactive"></i>
+       </div>
+
+       <button id="Salvar">Proximo</button>
+   </div>
+ </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <title>Tela Alterar Perfil</title>
+ <link href="css/criarProgramastyle.css" rel="stylesheet">
+ <link href="css/font/all.css" rel="stylesheet">
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript">
+   $(document).ready(function(){
+     var id = localStorage.getItem('id');
+
+     var cw = $('.Circle1').width();
+     $('.Circle1').css({'height':cw+'px'});
+
+     var TipoPrograma = 0;
+
+           $(".Massa").click(function(){
+              $(".TypeBox").css("background", "none");
+              $(".TypeBox").css("border-color", "#888");
+              $(".Massa").css("border-color", "rgb(43, 148, 39)");
+              $(".Massa").css("background", "#bbb");
+              $(".Circle1").css("border-color", "#888");
+              $(this).find(".Circle1").css("border-color", "#bbb");
+              TipoPrograma = 1;
+              $("#Salvar").css("background", "#257a22");
+           });
+
+           $(".Gordura").click(function(){
+              $(".TypeBox").css("background", "none");
+              $(".TypeBox").css("border-color", "#888");
+              $(".Gordura").css("border-color", "rgb(43, 148, 39)");
+              $(".Gordura").css("background", "#bbb");
+              $(".Circle1").css("border-color", "#888");
+              $(this).find(".Circle1").css("border-color", "#bbb");
+              TipoPrograma = 2;
+              $("#Salvar").css("background", "#257a22");
+           });
+
+           $(".Move").click(function(){
+              $(".TypeBox").css("background", "none");
+              $(".TypeBox").css("border-color", "#888");
+              $(".Move").css("border-color", "rgb(43, 148, 39)");
+              $(".Move").css("background", "#bbb");
+              $(".Circle1").css("border-color", "#888");
+              $(this).find(".Circle1").css("border-color", "#bbb");
+              TipoPrograma = 3;
+              $("#Salvar").css("background", "#257a22");
+           });
+
+
+           $("#Salvar").click(function(){
+             if(TipoPrograma == "1" || TipoPrograma == "2" || TipoPrograma == "3")
+             {
+               localStorage.setItem("tipoPrograma", TipoPrograma);
+               window.location.href = "tela_criarPrograma3.html";
+             }
+           });
+   });
+   </script>
+</head>
+<body>
+ <div class="content-desktop">
+ </div>
+ <div class="content-mobile">
+   <div class="topbar">
+     <a id="voltar" href="tela_criarPrograma.html"><</a>
+     <small id="txtTopo">Tipo de Programa</small>
+   </div>
+   <div id="area">
+           <div id="TypesBox">
+              <div class="TypeBox Massa">
+                  <div class="Circle1">
+                      <img class="Images" id="skinnyimg" src="img/skinny.png">
+                  </div>
+                  <i class="fas fa-arrow-down"></i>
+                  <div class="Circle1">
+                      <img class="Images" id="strongimg" src="img/strong.png">
+                  </div>
+                  <span class="Name">Construir Massa Muscular</span>
+              </div>
+
+              <div class="TypeBox Gordura">
+                  <div class="Circle1">
+                      <img class="Images" id="fatimg" src="img/fat.png">
+                  </div>
+                  <i class="fas fa-arrow-down"></i>
+                  <div class="Circle1">
+                      <img class="Images" id="normalimg" src="img/normal.png">
+                  </div>
+                  <span class="Name">Queimar Gordura</span>
+              </div>
+
+              <div class="TypeBox Move">
+                  <div class="Circle1">
+                      <img class="Images" id="flagstartimg" src="img/flagstart.png">
+                  </div>
+                  <i class="fas fa-arrow-down"></i>
+                  <div class="Circle1">
+                      <img class="Images" id="flagimg" src="img/flag.png">
+                  </div>
+                  <span class="Name">Aprender Movimentos</span>
+              </div>
+           </div>
+
+       <div id="dotsBox">
+         <i class="fas fa-circle dotUnactive"></i>
+         <i class="fas fa-circle dotActive"></i>
+         <i class="fas fa-circle dotUnactive"></i>
+         <i class="fas fa-circle dotUnactive"></i>
+       </div>
+
+       <button id="Salvar">Proximo</button>
+   </div>
+ </div>
+</body>
+</html>

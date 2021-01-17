@@ -1,0 +1,128 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Tela Tipo de Treino</title>
+ 	<link href="css/perfilstyle.css" rel="stylesheet">
+ 	<script type="text/javascript" src="js/jquery.js"></script>
+ 	<script type="text/javascript">
+	 	$(document).ready(function(){
+	 		var id = localStorage.getItem('id');
+	 		var url = "http://mattfontes.000webhostapp.com/php-code/CarregarPerfil.php";
+	 		$.getJSON(url,
+            {
+                id: id,
+            }
+            ,function(result) {
+                console.log(result);
+                $.each(result, function(i, field) {
+
+                    var Nome = field.nm_usuario;
+                    var Login = field.nm_login;
+                    var Email = field.ds_email;
+                    var Idade = field.dt_idade;
+                    var Tipo = field.tp_perfil;
+                    var Sexo = field.ds_sexo;
+
+                    var box = document.getElementById('Box');
+
+                    var nomeUsuarioB = document.createElement("span");
+                    nomeUsuarioB.className = 'Nome';
+
+                    var loginB = document.getElementById('Login');
+    
+                    var emailB = document.getElementById('email');
+
+                    var idadeB = document.getElementById('idade');
+
+                    var tipoB = document.getElementById('tipo');
+
+                    var sexoB = document.getElementById('sexo');
+                    
+                    box.appendChild(nomeUsuarioB);
+                        
+                    var element = document.getElementById("area");
+                    element.appendChild(box);
+                    element.appendChild(loginB);
+                    element.appendChild(emailB);
+                    element.appendChild(idadeB);
+                    element.appendChild(sexoB);
+                    element.appendChild(tipoB);
+
+
+                    var txtNome = document.createTextNode(Nome);
+                    nomeUsuarioB.appendChild(txtNome);
+
+                    var txtLogin = document.createTextNode("Login: " + Login);
+                    loginB.appendChild(txtLogin);
+
+					var txtEmail = document.createTextNode("Email: " + Email);
+                    emailB.appendChild(txtEmail);
+
+                    var txtIdade = document.createTextNode("Idade: " + Idade + " anos");
+                    idadeB.appendChild(txtIdade);
+
+
+                    if(Tipo == 1)
+                    {
+                    	var txtTipo = document.createTextNode("Tipo de Usuário: Inicial");
+                    }
+                    if(Tipo == 2)
+                    {
+                    	var txtTipo = document.createTextNode("Tipo de Usuário: Não Pagante");
+                    }
+                    if(Tipo == 3)
+                    {
+                    	var txtTipo = document.createTextNode("Tipo de Usuário: Pagante");
+                    }
+
+                    tipoB.appendChild(txtTipo);
+
+
+                    if(Sexo == "M")
+                    {
+                    	var txtSexo = document.createTextNode("Sexo: Masculino");
+                    }
+                    else
+                    {
+                    	var txtSexo = document.createTextNode("Sexo: Feminino");
+                    }
+                    sexoB.appendChild(txtSexo);
+                });
+            });
+
+
+
+	 		$("#Sair").click(function(){
+                localStorage.setItem('active', 0);
+                window.location.href = "login.html";
+            });
+
+	 		$("#AlterarInfo").click(function(){
+                window.location.href = "tela_alterarPerfil.html";
+            });
+	 	});
+    </script>
+ </head>
+ <body>
+ 	<div class="content-desktop">
+ 	</div>
+ 	<div class="content-mobile">
+ 		<div class="topbar">
+ 			<a id="voltar" href="tela_principal.html"><</a>
+ 			<small id="txtTopo">Perfil</small>
+ 		</div>
+ 		<div id="area"> 
+ 			<div id="Imagem"><img class="perfil" src="img/perfil.png"></div>
+ 			<div id="Box"></div>
+		    <span id="Login"></span>
+		    <span id="email"></span>
+		    <span id="idade"></span>
+		    <span id="sexo"></span>
+		    <span id="tipo"></span>
+		    <button id="AlterarInfo">Alterar Informação</button>
+		    <button id="Sair">Sair</button>
+		</div>	
+ 	</div>
+ </body>
+ </html>

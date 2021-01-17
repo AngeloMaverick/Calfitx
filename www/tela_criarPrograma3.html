@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Alterar Perfil</title>
+  <link href="css/criarProgramastyle.css" rel="stylesheet">
+  <link href="css/font/all.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var id = localStorage.getItem('id');
+
+      var cw = $('.Tempo').width();
+      $('.Tempo').css({
+        'height': cw + 'px'
+      });
+
+      var TempoPrograma = 0;
+
+      $(".Clock30").click(function() {
+        $(".Tempo30").attr("src", "img/Tempo30Fill.png");
+        $(".Tempo45").attr("src", "img/Tempo45.png");
+        $(".Tempo60").attr("src", "img/Tempo60.png");
+        $(".Tempo90").attr("src", "img/Tempo90.png");
+        $(".Clock45").css("background", "none");
+        $(".Clock60").css("background", "none");
+        $(".Clock90").css("background", "none");
+        $(".Clock45").css("border-color", "#888");
+        $(".Clock60").css("border-color", "#888");
+        $(".Clock90").css("border-color", "#888");
+        $(".Clock30").css("border-color", "rgb(43, 148, 39)");
+        $(".Clock30").css("background", "#bbb");
+        $("#Salvar").css("background", "#257a22");
+        TempoPrograma = 30;
+      });
+
+      $(".Clock45").click(function() {
+        $(".Tempo30").attr("src", "img/Tempo30.png");
+        $(".Tempo45").attr("src", "img/Tempo45Fill.png");
+        $(".Tempo60").attr("src", "img/Tempo60.png");
+        $(".Tempo90").attr("src", "img/Tempo90.png");
+        $(".Clock30").css("background", "none");
+        $(".Clock60").css("background", "none");
+        $(".Clock90").css("background", "none");
+        $(".Clock30").css("border-color", "#888");
+        $(".Clock60").css("border-color", "#888");
+        $(".Clock90").css("border-color", "#888");
+        $(".Clock45").css("border-color", "rgb(43, 148, 39)");
+        $(".Clock45").css("background", "#bbb");
+        $("#Salvar").css("background", "#257a22");
+        TempoPrograma = 45;
+      });
+
+      $(".Clock60").click(function() {
+        $(".Tempo30").attr("src", "img/Tempo30.png");
+        $(".Tempo45").attr("src", "img/Tempo45.png");
+        $(".Tempo60").attr("src", "img/Tempo60Fill.png");
+        $(".Tempo90").attr("src", "img/Tempo90.png");
+        $(".Clock45").css("background", "none");
+        $(".Clock30").css("background", "none");
+        $(".Clock90").css("background", "none");
+        $(".Clock45").css("border-color", "#888");
+        $(".Clock30").css("border-color", "#888");
+        $(".Clock90").css("border-color", "#888");
+        $(".Clock60").css("border-color", "rgb(43, 148, 39)");
+        $(".Clock60").css("background", "#bbb");
+        $("#Salvar").css("background", "#257a22");
+        TempoPrograma = 60;
+      });
+
+      $(".Clock90").click(function() {
+        $(".Tempo30").attr("src", "img/Tempo30.png");
+        $(".Tempo45").attr("src", "img/Tempo45.png");
+        $(".Tempo60").attr("src", "img/Tempo60.png");
+        $(".Tempo90").attr("src", "img/Tempo90Fill.png");
+        $(".Clock45").css("background", "none");
+        $(".Clock60").css("background", "none");
+        $(".Clock30").css("background", "none");
+        $(".Clock45").css("border-color", "#888");
+        $(".Clock60").css("border-color", "#888");
+        $(".Clock30").css("border-color", "#888");
+        $(".Clock90").css("border-color", "rgb(43, 148, 39)");
+        $(".Clock90").css("background", "#bbb");
+        $("#Salvar").css("background", "#257a22");
+        TempoPrograma = 90;
+      });
+
+      $("#Salvar").click(function() {
+        if (TempoPrograma == 30 || TempoPrograma == 45 || TempoPrograma == 60 || TempoPrograma == 90) {
+          localStorage.setItem("tempoPrograma", TempoPrograma);
+          window.location.href = "tela_criarPrograma4.html";
+        }
+      });
+
+
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content-desktop">
+  </div>
+  <div class="content-mobile">
+    <div class="topbar">
+      <a id="voltar" href="tela_criarPrograma2.html">
+        <</a> <small id="txtTopo">Tempo de Programa</small>
+    </div>
+    <div id="area">
+      <div class="ClockBox">
+        <div class="Half">
+          <div class="Clock Clock30">
+            <img class="Tempo Tempo30" src="img/Tempo30.png">
+            <span class="MinText">30 Minutos</span>
+          </div>
+          <div class="Clock Clock45">
+            <img class="Tempo Tempo45" src="img/Tempo45.png">
+            <span class="MinText">45 Minutos</span>
+          </div>
+        </div>
+        <div class="Half">
+          <div class="Clock Clock60">
+            <img class="Tempo Tempo60" src="img/Tempo60.png">
+            <span class="MinText">60 Minutos</span>
+          </div>
+          <div class="Clock Clock90">
+            <img class="Tempo Tempo90" src="img/Tempo90.png">
+            <span class="MinText">90 Minutos</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="dotsBox">
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+        <i class="fas fa-circle dotActive"></i>
+        <i class="fas fa-circle dotUnactive"></i>
+      </div>
+
+      <button id="Salvar">Proximo</button>
+    </div>
+  </div>
+</body>
+
+</html>

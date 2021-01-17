@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video</title>
+	<link rel="stylesheet" type="text/css" href="css/ionic.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script>
+
+		$(document).ready(function() {
+        $("#insert2").click(function() {
+		
+			var filename = "movie.mp4";
+			var videoURL = "https://www.w3schools.com/tags/movie.mp4";
+
+			requestFileSystem(PERSISTENT, 0, function(fileSystem) {
+	    		var ft = new FileTransfer();
+	    		ft.download(videoURL, fileSystem.root.toURL() + "/" + filename, function(entry) {
+	       			var videoElement = document.createElement('video');
+	        		videoElement.controls = 'controls';
+       				videoElement.src = entry.toNativeURL();
+        			document.videoElementById("output").appendChild(imgElement);
+    			});
+   			});
+		});
+    });
+
+	</script>
+</head>
+<body>
+
+	<div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+    	<a class="button button-clear" href="index.html">Home</a>
+        <h1 class="title">Insert Database</h1>
+        <a class="button button-clear" href="readjson.html">Read JSON</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+    	<center>
+        <video width="100%" src="https://www.w3schools.com/tags/movie.mp4" controls></video></center>
+        <div class="item">
+            <input type="button" id="insert2" class="button button-block" value="Download Video" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Ver video baixado" />
+        </div>
+        <div class="item">
+            <video id="output"></video>
+        </div>
+    </div>
+</body>
+</html>

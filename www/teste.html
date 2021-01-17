@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tela Exercicios</title>
+	<link href="css/programasstyle.css" rel="stylesheet">
+	<link href="css/font/all.css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    	function load(){
+            var active = localStorage.getItem('active');
+            if(active != '1')
+            {
+                window.location.href = "login.html";
+            }
+            document.getElementById("popback").style.display = "none";
+        }
+
+        /*SideNav Style*/
+   		$(document).ready(function(){
+
+
+
+    		$("#home_txt").mouseover(function(){
+    			$("#home_txt").css("color", "green");
+        		$("#home_behind").css("background-color", "green");
+
+    		});
+    		$("#home_txt").mouseout(function(){
+        		$("#home_behind").css("background-color", "white");
+        		$("#home_txt").css("color", "white");
+    		});
+
+
+
+    		$("#forte_txt").mouseover(function(){
+    			$("#forte_txt").css("color", "green");
+        		$("#forte_behind").css("background-color", "green");
+
+    		});
+    		$("#forte_txt").mouseout(function(){
+        		$("#forte_behind").css("background-color", "white");
+        		$("#forte_txt").css("color", "white");
+    		});
+
+
+
+    		$("#calendario_txt").mouseover(function(){
+    			$("#calendario_txt").css("color", "green");
+        		$("#calendario_behind").css("background-color", "green");
+
+    		});
+    		$("#calendario_txt").mouseout(function(){
+        		$("#calendario_behind").css("background-color", "white");
+        		$("#calendario_txt").css("color", "white");
+    		});
+
+                $("#FirstBubble").click(function(){
+                    window.location.href = "tela_tipo.html"
+                });
+
+                $("#SecondBubble").click(function(){
+                    window.location.href = "*"
+                });
+
+                $("#ThirdBubble").click(function(){
+                    window.location.href = "tela_montados.html"
+                });
+
+            $("#sair").click(function(){
+                    localStorage.setItem('active', 0);
+                    window.location.href = "login.html";
+                });
+
+            $(".perfil").click(function(){
+                    window.location.href = "tela_perfil.html";
+                });
+
+								$(".stats").click(function(){
+										window.location.href="tela_stats.html";
+								});
+
+								$(".clock").click(function(){
+                    window.location.href="tela_programas.html";
+                });
+
+    		    var url= "http://mattfontes.000webhostapp.com/php-code/CarregarProgramas.php";
+            var treininho = [];
+            var i = 0;
+
+							if(localStorage.getItem('perfil') == 4)
+							{
+								var addP = document.createElement("div");
+								addP.id = "AddPrograma";
+								addP.className = "fas fa-plus";
+
+								var element = document.getElementById("area");
+								element.appendChild(addP);
+							}
+
+
+
+
+                $.getJSON(url,
+                {
+
+                }
+                 ,function(result) {
+                    console.log(result);
+                    $.each(result, function(i, field) {
+                        var nomePrograma = field.nm_programa;
+                        var tempo = field.ds_tempo;
+                        var tipo = field.tp_tipo;
+                        var desc = field.ds_programa;
+                        var criador = field.Nome;
+												var codP  = field.cd_treino;
+
+                        var divx = document.createElement("div");
+                        divx.className = 'ProgramaBox';
+                        divx.id = 'Programa' + [i];
+                        i++;
+
+                        var nomeBox = document.createElement("div");
+                        nomeBox.className = "NomeBox";
+
+                        var descBox = document.createElement("div");
+                        descBox.className = "DescBox";
+
+                        var node4 = document.createElement("span");
+                        node4.className = "Desc";
+
+
+                        var node = document.createElement("span");
+                        node.className = 'NomePrograma';
+
+                        var tempoBox = document.createElement("div");
+                        tempoBox.className = "TempoBox";
+
+                        var node2 = document.createElement("span");
+                        if(tempo == 30)
+                        {
+                            node2.className = 'Tempo Trinta';
+                        }
+                        if(tempo == 45)
+                        {
+                            node2.className = 'Tempo Quarenta';
+                        }
+                        if(tempo == 60)
+                        {
+                            node2.className = 'Tempo Sessenta';
+                        }
+                        if(tempo == 90)
+                        {
+                            node2.className = 'Tempo Noventa';
+                        }
+
+                        var criadorBox = document.createElement("div");
+                        criadorBox.className = "CriadorBox";
+                        var node3 =  document.createElement("span");
+                        node3.className = "Criador";
+
+												var divz1 = document.createElement("div");
+												divz1.className =  "LeftDiv";
+
+												var divz2 = document.createElement("div");
+												divz2.className =  "RightDiv";
+
+
+												var nomin = document.createElement("p");
+												nomin.className = "Nome";
+												nomin.appendChild(document.createTextNode(nomePrograma));
+
+												divx.appendChild(nomin);
+
+
+                        nomeBox.appendChild(node);
+                        divz1.appendChild(nomeBox);
+
+                        descBox.appendChild(node4);
+                        divz1.appendChild(descBox);
+
+
+
+                        tempoBox.appendChild(node2);
+                        divz2.appendChild(tempoBox);
+
+                        criadorBox.appendChild(node3);
+                        divz2.appendChild(criadorBox);
+
+												divx.appendChild(divz1);
+												divx.appendChild(divz2);
+
+
+                        var element = document.getElementById("area");
+                        element.appendChild(divx);
+
+
+                        var txtNome = document.createTextNode(nomePrograma);
+                        node.appendChild(txtNome);
+                        var txtTempo = document.createTextNode(tempo);
+                        node2.appendChild(txtTempo);
+                        var txtCriador = document.createTextNode(criador);
+                        node3.appendChild(txtCriador);
+                        var txtDesc = document.createTextNode(desc);
+                        node4.appendChild(txtDesc);
+                    });
+                });
+
+								//$(document).on('click', ".ProgramaBox",(function(event) {
+				       // 		alert(event.target.id);
+				    	//	}));
+
+
+								$(document).on('click', ".ProgramaBox",(function(){
+						    		alert(this.id);
+								}));
+
+								/*$(document).on('click', ".ProgramaBox",$.proxy(function(event) {
+		                var status = $(event.target).attr('id');
+										alert(status);
+		              alert($("#" + status).children(".Nome").text());
+		              //  window.location.href = "tela_treino.html";
+		            }, this));*/
+
+
+
+		});
+
+
+        /*SideNav*/
+		function openNav() {
+    		document.getElementById("mySidenav").style.width = "50%";
+
+
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, rdb(178,178,178) 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+
+		}
+
+		function closeNav() {
+ 		   document.getElementById("mySidenav").style.width = "0";
+		}
+
+
+        /*PopUp*/
+        function openPupUp(){
+            var popy = document.getElementById("popback").style.display;
+            if(popy == "none")
+            {
+                document.getElementById("popback").style.display = "block";
+                document.getElementById("navbar").style.background = "rgba(0, 0, 0, 0) linear-gradient(0deg, rgb(178, 178, 178) 15%, rgb(206, 206, 206) 10%) repeat scroll 0% 0%";
+                closeNav();
+            }
+            else
+            {
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("popback")) {
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+            }
+        }
+    </script>
+</head>
+<body onload="load()">
+    <div class="content-desktop">
+   		<h1>APENAS MOBILE</h1>
+    </div>
+
+    <div class="content-mobile">
+
+    	<nav>
+			<ul id="navbar">
+
+				<li class="li_n"><span onclick="openNav()"><img class="things" src="img/3things.png"></span></li>
+				<li class="li_n"><img class="clock" src="img/clock.png"></li>
+				<li class="li_m"><img onclick="openPupUp()" class="main" src="img/main2.png"></li>
+				<li class="li_n"><img class="stats" src="img/stats.png"></li>
+				<li class="li_n"><img class="perfil" src="img/perfil.png"></li>
+			</ul>
+		</nav>
+
+
+		<div id="mySidenav" class="sidenav">
+ 		 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		 <a href="teste.html" id="home_txt"><div id="home_behind"><img class="icon_home" src="img/home.png"></div>Início</a>
+
+ 		 <a href="tela_exercicios.html" id="forte_txt"><div id="forte_behind"><img class="icon_forte" src="img/Forte2.3.png"></div>Movimentos</a>
+  		<a href="#" id="calendario_txt"><div id="calendario_behind"><img class="icon_calendario" src="img/calendario.png"></div>Calendário</a>
+ 		 <a class="sobre" href="index.html">Sobre nós</a>
+         <a id="sair">Sair</a>
+		</div>
+
+        <div id="popback">
+            <div id="popup">
+                <div id="FirstBubble" href="tela_tipo.html">
+                    <a id="TreinoAutomatico">Treino Automático</a>
+                </div>
+                <div id="SecondBubble" href="*">
+                    <a id="TreinoManual">Treino Manual</a>
+                </div>
+                <div id="ThirdBubble" href="tela_montados.html">
+                    <a id="TreinosMontados">Treinos Montados</a>
+                </div>
+            </div>
+        </div>
+        <div id="area">
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,685 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Tela Treino</title>
+ 	<link href="css/treinostyle.css" rel="stylesheet">
+    <link href="css/font/all.css" rel="stylesheet">
+ 	<script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/stopwatch.js"></script>
+ 	<script type="text/javascript">
+
+
+
+
+
+
+        function load(){
+            document.getElementById("SwitchExercise").style.display = "none";
+            document.getElementById("Back").style.display = "none";
+        }
+
+
+
+	 	$(document).ready(function(){
+
+
+
+
+
+
+
+
+
+
+            var counter = 0;
+            var isPaused = true;
+
+            $("#pause, #resume").hide();
+            $("#days, #hours, #first-divider, #second-divider").hide();
+            $("#start").show();
+
+            var t = window.setInterval(function() {
+              if (!isPaused) {
+                counter++;
+                var s = counter;
+                convertSeconds(Math.floor(s));
+              }
+            }, 1000);
+
+            // Button Click Events
+            $("#start").click(function () {
+              startClock();
+              $(this).hide();
+              $("#pause").show();
+              $("#reset, #stop").css("opacity", "1");
+            });
+
+            $("#pause").click(function (){
+              pauseClock();
+              $(this).hide();
+              $("#resume").show();
+            });
+
+            $("#resume").click(function (){
+              resumeClock();
+              $(this).hide();
+              $("#pause").show();
+            });
+
+            $("#reset").click(function (){
+              resetClock();
+              $("#resume").hide();
+              $("#pause").show();
+            });
+
+            $("#stop").click(function () {
+              resetClock();
+              $("#pause, #resume").hide();
+              $("#start").show();
+              $("#reset, #stop").css("opacity", "0");
+            });
+
+
+            function startClock() {
+              isPaused = false;
+            }
+            function pauseClock() {
+              isPaused = true;
+            }
+            function resumeClock() { isPaused = false; }
+            function resetClock() {
+              counter = 0;
+              $("#days").html("00");
+              $("#hours").html("00");
+              $("#minutes").html("00");
+              $("#seconds").html("00");
+            }
+            function stopClock() {
+              resetClock();
+              isPaused = true;
+            }
+
+            function convertSeconds(s) {
+              var days = Math.floor(s / 86400)
+              var hours = Math.floor((s % 86400) / 3600);
+              var minutes = Math.floor(((s % 86400) % 3600) / 60);
+              var seconds = ((s % 86400) % 3600) % 60;
+
+              if (days    < 10) {days    = "0" + days}
+              if (hours   < 10) {hours   = "0" + hours;}
+              if (minutes < 10) {minutes = "0" + minutes;}
+              if (seconds < 10) {seconds = "0" + seconds;}
+
+              $("#days").html(days);
+              $("#hours").html(hours);
+              $("#minutes").html(minutes);
+              $("#seconds").html(seconds);
+
+              if (days == 0 && hours == 0) {
+                $("#days, #hours").hide();
+                $("#first-divider, #second-divider").hide();
+              } else if (days == 0) {
+                $("#days").hide();
+                $("#hours").show();
+                $("#second-divider").show();
+              } else {
+                $("p, .divider").show();
+              }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+	 		var NomeTreino = localStorage.getItem('TreinoNome');
+	 		$("#txtTopo").text(NomeTreino);
+	    	var id = localStorage.getItem('id');
+
+        if(localStorage.getItem("TipoTreino") == "Treino")
+        {
+            var url= "http://mattfontes.000webhostapp.com/php-code/CarregarTreino.php";
+        }
+        if(localStorage.getItem("TipoTreino") == "Programa")
+        {
+            var url= "http://mattfontes.000webhostapp.com/php-code/CarregarPrograma.php";
+        }
+
+
+            var treininho = [];
+            var i = 0;
+            var Tempo;
+            var cd;
+            var treinocd;
+            var i2 = 0;
+            var exeAlterar;
+            var tipoAlterar;
+            var musculoAlterar;
+            var tipoTreino;
+
+            //Carregando Treino
+
+            $.getJSON(url,
+            {
+                id: id,
+                nome: NomeTreino,
+            }
+            ,function(result) {
+                console.log(result);
+                 $.each(result, function(i, field) {
+                    cd = field.cd_cadastro;
+                    treinocd = field.cd_treino;
+                    Tempo = field.ds_tempo;
+                    tipoTreino = field.tp_tipo;
+                 	$.getJSON("http://mattfontes.000webhostapp.com/php-code/CarregarExercicio.php",
+                 	{
+                 		exe1: field.cd_exercicio1,
+                 		exe2: field.cd_exercicio2,
+                 		exe3: field.cd_exercicio3,
+                 		exe4: field.cd_exercicio4,
+                 		exe5: field.cd_exercicio5,
+                 		exe6: field.cd_exercicio6,
+                 		exe7: field.cd_exercicio7,
+                 		exe8: field.cd_exercicio8,
+                 		exe9: field.cd_exercicio9,
+                 		exe10: field.cd_exercicio10,
+                 		Tempo: field.ds_tempo,
+                        Tipo: field.tp_tipo,
+                 	}
+                    ,function(result) {
+                        console.log(result);
+                        $.each(result, function(i, field) {
+
+                            var title;
+                            var duration = field.nm_exercicio;
+                            var price = field.ds_imagem;
+                            var tipo = field.tp_tipo;
+                            var musculo = field.cd_musculo;
+
+                            if(Tempo == "30")
+                            {
+                                title = field.ds_rep_30;
+                            }
+                            if(Tempo == "45")
+                            {
+                                title = field.ds_rep_45;
+                            }
+                            if(Tempo == "60")
+                            {
+                                title = field.ds_rep_60;
+                            }
+                            if(Tempo == "90")
+                            {
+                                title = field.ds_rep_90;
+                            }
+
+                            var insideSwitch = document.createElement("div");
+                            insideSwitch.className = 'ExercicioBox';
+                            var img = document.createElement("img");
+
+                            $.get(price)
+                            .done(function() {
+                                img.setAttribute("src", price);
+
+                            })
+                            .fail(function() {
+                                img.setAttribute("src", "img/placeholder.png");
+                            });
+
+
+                            img.setAttribute("width", "120vh");
+                            img.setAttribute("height", "72vh");
+                            img.className = 'ImgId';
+                            img.id = 'Imagem' + [i];
+                            var node = document.createElement("p");
+                            node.id = 'Nome';
+                            node.className = 'Nomes';
+                            var node2 = document.createElement("small");
+                            node2.id = 'Reps';
+                            node2.className = 'Repss';
+                            var node3 = document.createElement("button");
+                            node3.className = 'Remover';
+                            node3.id = 'Delete' + i;
+                            var node4 = document.createElement("small");
+                            node4.id = 'Tipo';
+                            var node5 = document.createElement("small");
+                            node5.id = 'Musculo';
+                            i++;
+                            insideSwitch.appendChild(img);
+                            insideSwitch.appendChild(node);
+                            insideSwitch.appendChild(node2);
+                            insideSwitch.appendChild(node3);
+                            insideSwitch.appendChild(node4);
+                            insideSwitch.appendChild(node5);
+                            var element = document.getElementById("area");
+                            element.appendChild(insideSwitch);
+
+                            var txtNome = document.createTextNode(duration);
+                            node.appendChild(txtNome);
+                            var txtReps = document.createTextNode(title);
+                            node2.appendChild(txtReps);
+                            var txtBtn = document.createTextNode("⇆");
+                            node3.appendChild(txtBtn);
+                            var txtTipo = document.createTextNode(tipo);
+                            node4.appendChild(txtTipo);
+                            var txtMusculo = document.createTextNode(musculo);
+                            node5.appendChild(txtMusculo);
+                        });
+
+                    });
+
+
+                });
+            });
+
+
+
+
+            //Abrindo pag de informação do exercicio
+
+            $(document).on('click', ".ImgId",$.proxy(function(event) {
+                var status = $(event.target).attr('id');
+                //alert($("#" + status).siblings("#Nome").text());
+                localStorage.setItem("ExercicioNome" ,($("#" + status).siblings("#Nome").text()));
+                localStorage.setItem("UltimaPag", "Treino");
+
+                window.location.href = "tela_exercicio.html";
+            }, this));
+
+
+
+
+
+            //Alterar Exercicio
+
+            $(document).on('click', ".ExercicioBox",$.proxy(function(event) {
+                var isIt = document.getElementById("SwitchExercise").style.display;
+                if(isIt == "block")
+                {
+                    var status = $(event.target).attr('id');
+                    //alert($("#" + status).siblings("#Nome").text());
+
+                    var exerci = "cd_exercicio" + exeAlterar;
+                    var dataString = ("name="+$("#" + status).children("#Nome").text()+"&exe="+exerci+"&cdPessoa="+cd+"&cdTreino="+treinocd+"&tipo="+tipoAlterar+"&musculo="+musculoAlterar+"&update=")
+                    alert(dataString);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://mattfontes.000webhostapp.com/php-code/AlterarExercicio.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        success: function(data){
+                            if(data == "success") {
+                                alert("Exercicio Atualizado");
+                            }
+                            else if(data == "error")
+                            {
+                                alert("Erro ao Atualizar");
+                            }
+                        }
+                    });
+
+                }
+            }, this));
+
+
+
+
+
+
+            //Carregando os Exercicios para Alterar
+
+            $(document).on('click', ".Remover",$.proxy(function(event) {
+
+                var status = $(event.target).attr('id');
+                //alert($("#" + status).siblings("#Nome").text());
+                var nome = ($("#" + status).siblings("#Nome").text());
+                var tipo = ($("#" + status).siblings('#Tipo').text());
+                var musculo = ($("#" + status).siblings('#Musculo').text());
+                tipoAlterar = tipo;
+                musculoAlterar = musculo;
+
+                var str = status;
+                var res = str.replace("Delete", "");
+                var num = Number(res) + 1;
+
+
+
+                exeAlterar = num;
+
+                $.getJSON("http://mattfontes.000webhostapp.com/php-code/CarregarExercicioAlterar.php",
+                {
+                    nome: nome,
+                    tipo: tipo,
+                    musculo: musculo,
+                }
+                ,function(result) {
+                    console.log(result);
+                    $.each(result, function(i, field) {
+                        var title;
+                        var duration = field.nm_exercicio;
+                        var price = field.ds_imagem;
+
+                        if(Tempo == "30")
+                        {
+                            title = field.ds_rep_30;
+                        }
+                        if(Tempo == "45")
+                        {
+                            title = field.ds_rep_45;
+                        }
+                        if(Tempo == "60")
+                        {
+                            title = field.ds_rep_60;
+                        }
+                        if(Tempo == "90")
+                        {
+                            title = field.ds_rep_90;
+                        }
+
+                        var insideSwitch = document.createElement("div");
+                        insideSwitch.className = 'ExercicioBox';
+                        insideSwitch.id = ("ExercicioBox" + i2);
+                        var img = document.createElement("img");
+                        img.setAttribute("src", price);
+                        img.setAttribute("width", "100vh");
+                        img.setAttribute("height", "60vh");
+                        img.className = 'ImgId';
+                        img.id = 'Imagem' + [i];
+                        var node = document.createElement("p");
+                        node.id = 'Nome';
+                        node.className = 'Nomes';
+                        var node2 = document.createElement("small");
+                        node2.id = 'Reps';
+                        node2.className = 'Repss';
+
+                        i2++;
+                        insideSwitch.appendChild(img);
+                        insideSwitch.appendChild(node);
+                        insideSwitch.appendChild(node2);
+
+                        var element = document.getElementById("SwitchExercise");
+                        element.appendChild(insideSwitch);
+                        var txtNome = document.createTextNode(duration);
+                        node.appendChild(txtNome);
+                        var txtReps = document.createTextNode(title);
+                        node2.appendChild(txtReps);
+                        OpenPopUp();
+                    });
+                });
+
+            }, this));
+
+
+
+
+
+
+
+
+        // Botao que inicia as animacoes
+
+        $("#btnNext").click(function (){
+
+            var botoes = document.getElementsByClassName('Remover');
+            var imagens = document.getElementsByClassName('ImgId');
+            var nomes = document.getElementsByClassName('Nomes');
+            var reeps = document.getElementsByClassName('Repss');
+            var ifor;
+
+            for(ifor = 0; ifor < $('.Remover').length; ifor++)
+            {
+
+                var isOpen = botoes[ifor].classList.contains('slide-out');
+                if(isOpen){
+                    document.getElementById("btnDel").style.opacity = "0";
+                    //document.getElementById("finish").style.display = "flex";
+                }
+                else
+                {
+                    //document.getElementById("finish").style.display = "none";
+                    document.getElementById("btnDel").style.opacity = "100";
+                }
+                reeps[ifor].setAttribute('class', isOpen ? 'Repss slide-inReps' : 'Repss slide-outReps');
+                nomes[ifor].setAttribute('class', isOpen ? 'Nomes slide-inNome' : 'Nomes slide-outNome');
+                imagens[ifor].setAttribute('class', isOpen ? 'ImgId slide-inImg' : 'ImgId slide-outImg');
+                botoes[ifor].setAttribute('class', isOpen ? 'Remover slide-in' : 'Remover slide-out');
+
+            }
+
+
+        });
+
+
+            /*
+
+
+            //Fazendo as animações
+
+            var at = 0;
+            $("#btnNext").click(function (){
+              if(at == 0){
+                //var elem = document.getElementById("area");
+                //$(".Remover").css("right", "3%");
+                //$(".Nomes").css("margin-left", "-6%");
+                //$(".Nomes").css("margin-top", "4%");
+                //$(".Repss").css("margin-left", "-6%");
+                //$(".Repss").css("margin-top", "15%");
+                $("#btnNext").css("background", "blue");
+                $("#btnDel").css("display", "block");
+                $("#btnNext").css("margin-right", "5%");
+                $("#btnNext").css("margin-left", "2%");
+                $("#txtTopo").css("margin-left", "4%");
+
+                var pos = 0;
+                var id = setInterval(frame, 8);
+                function frame() {
+                  if (pos == 20) {
+                    clearInterval(id);
+                  } else {
+                    pos++;
+                    $(".Nomes").css("margin-left", -pos+ 'vw');
+                    $(".Repss").css("margin-left", -pos + 'vw');
+                    $(".ImgId").css("margin-left", -pos + 2 + 'vw');
+                    $(".Remover").css("right", -17 + pos + 'vw');
+                    //elem.style.left = '-'+ pos + '%';
+                  }
+                }
+                at = 1;
+              }
+              else
+              {
+                //var elem = document.getElementById("area");
+
+                var pos = 20;
+                var id = setInterval(frame, 8);
+                function frame() {
+                  if (pos == 0) {
+                    clearInterval(id);
+                  } else {
+                    pos--;
+                    $(".Nomes").css("margin-left", -pos+ 'vw');
+                    $(".Repss").css("margin-left", -pos + 'vw');
+                    $(".ImgId").css("margin-left", -pos + 2 + 'vw');
+                    $(".Remover").css("right", -17 + pos + 'vw');
+                    //elem.style.left = '-'+ pos + '%';
+                  }
+                }
+                $("#btnDel").css("display", "none");
+                //$(".Remover").css("right", "-20%");
+                //$(".Nomes").css("margin-left", "0vw");
+                //$(".Repss").css("margin-left", "0vw");
+                //$(".ImgId").css("margin-left", "2vw")
+                //$(".Nomes").css("margin-left", "0%");
+                //$(".Nomes").css("margin-top", "5%");
+                //$(".Repss").css("margin-left", "0%");
+                //$(".Repss").css("margin-top", "18%");
+                $("#btnNext").css("background", "gray");
+                $("#btnNext").css("margin-right", "auto");
+                $("#btnNext").css("margin-left", "auto");
+                $("#txtTopo").css("margin-right", "auto");
+                at = 0;
+              }
+
+            });
+
+        */
+
+
+            //Apagar Treino
+
+            $("#btnDel").click(function(){
+              var dataString = "cd=" + cd + "&treino=" + treinocd + "&insert=";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://mattfontes.000webhostapp.com/php-code/ApagarTreino.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+
+                        success: function(data) {
+                            if (data == "success") {
+                                window.location.href = "tela_montados.html";
+                            } else if (data == "error") {
+                                alert("Erro ao Apagar Treino");
+                            }
+                        }
+
+                    });
+            });
+
+
+            $(".btnConcluir").click(function(){
+                 var dataString = "cdPessoa=" + cd + "&tpTreino=" + tipoTreino + "&update=";
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://mattfontes.000webhostapp.com/php-code/ConcluirTreino.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+
+                    success: function(data) {
+                        if (data == "success") {
+                            window.location.href = "tela_montados.html";
+                        } else if (data == "error") {
+                            alert("Erro ao Concluir Treino");
+                        }
+                    }
+
+                });
+            });
+
+
+
+	    });
+
+
+    function OpenPopUp(){
+
+        document.getElementById("SwitchExercise").style.display = "block";
+        document.getElementById("Back").style.display = "block";
+        /*
+        document.getElementsByTagName("body")[0].style.background = "rgba(0, 0, 0, 0.3)";
+
+        var c = document.getElementsByClassName("ExercicioBox");
+        var im = document.getElementsByClassName("ImgId");
+        var i;
+        for(i = 0; i < c.length; i++)
+        {
+            c[i].style.background = "rgba(0,0,0,0.3)";
+            im[i].style.filter = "brightness(50%)";
+        }
+
+        var x = document.getElementById("SwitchExercise").getElementsByClassName("ExercicioBox");
+        var imx = document.getElementById("SwitchExercise").getElementsByClassName("ImgId");
+        var a;
+        for(a = 0; a < x.length; a++)
+        {
+            x[a].style.background = "#fff";
+            im[a].style.filter = "brightness(100%)";
+        }
+        */
+
+    }
+
+    window.onclick = function(event) {
+            if (event.target == document.getElementById("Back")) {
+                var Node = document.getElementById("SwitchExercise");
+                while (Node.firstChild) {
+                    Node.removeChild(Node.firstChild);
+                }
+                document.getElementById("SwitchExercise").style.display = "none";
+                document.getElementById("Back").style.display = "none";
+                document.getElementsByTagName("body")[0].style.background = "#fff";
+                var im = document.getElementsByClassName("ImgId");
+                var c = document.getElementsByClassName("ExercicioBox");
+                var i;
+                for(i = 0; i < c.length; i++)
+                {
+                    c[i].style.background = "#fff";
+                    im[i].style.filter = "brightness(100%)";
+                }
+            }
+        }
+
+
+
+
+
+
+    </script>
+
+ </head>
+ <body onload="load()">
+ 	<div class="content-desktop">
+ 	</div>
+ 	<div class="content-mobile">
+    <div class="topbar">
+      <a id="voltar" href="tela_montados.html"><</a>
+      <small id="txtTopo"></small>
+      <button id="btnDel" class="fas fa-minus"></button>
+      <button id="btnNext" class="fas fa-pencil-alt"></button>
+    </div>
+ 		<div id="area">
+            <div id="wrapper">
+                <div id="stopwatch">
+                    <p class="Conts" id="days">00</p>
+                    <span id="first-divider" class="divider">:</span>
+                    <p class="Conts" id="hours">00</p>
+                    <span id="second-divider" class="divider">:</span>
+                    <p class="Conts" id="minutes">00</p>
+                    <span id="third-divider" class="divider">:</span>
+                    <p class="Conts" id="seconds">00</p>
+                </div>
+
+                <div id="button-wrap">
+                    <button id="start"><i class="fa fa-play fa-fw" aria-hidden="true"></i>Iniciar</button>
+                    <button id="pause"><i class="fa fa-pause fa-fw" aria-hidden="true"></i>Pausar</button>
+                    <button id="resume"><i class="fa fa-play fa-fw" aria-hidden="true"></i>Resumir</button>
+                    <button id="reset" class="no-text"><i class="fas fa-redo fa-fw fa-flip-horizontal" aria-hidden="true"></i></button>
+                    <button id="stop" class="no-text"><i class="fa fa-stop fa-fw fa-flip-horizontal" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div id="Back">
+            </div>
+            <div id="SwitchExercise">
+            </div>
+            <div id="finish">
+                <button class="btnConcluir"><i class="fas fa-check" style="margin-right: 10px;"></i>Concluir Treino</button>
+            </div>
+		</div>
+
+ 	</div>
+ </body>
+
+ </html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela Exercicios</title>
+  <link href="css/infostyle.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    function load() {
+      var active = localStorage.getItem('active');
+      if (active != '1') {
+        window.location.href = "login.html";
+      }
+      document.getElementById("popback").style.display = "none";
+    }
+
+    /*SideNav Style*/
+    $(document).ready(function() {
+      $("#home_txt").mouseover(function() {
+        $("#home_txt").css("color", "green");
+        $("#home_behind").css("background-color", "green");
+
+      });
+      $("#home_txt").mouseout(function() {
+        $("#home_behind").css("background-color", "white");
+        $("#home_txt").css("color", "white");
+      });
+
+
+
+      $("#forte_txt").mouseover(function() {
+        $("#forte_txt").css("color", "green");
+        $("#forte_behind").css("background-color", "green");
+
+      });
+      $("#forte_txt").mouseout(function() {
+        $("#forte_behind").css("background-color", "white");
+        $("#forte_txt").css("color", "white");
+      });
+
+
+
+      $("#calendario_txt").mouseover(function() {
+        $("#calendario_txt").css("color", "green");
+        $("#calendario_behind").css("background-color", "green");
+
+      });
+      $("#calendario_txt").mouseout(function() {
+        $("#calendario_behind").css("background-color", "white");
+        $("#calendario_txt").css("color", "white");
+      });
+
+      $(".perfil").click(function() {
+        window.location.href = "tela_perfil.html";
+      });
+
+      $(".clock").click(function() {
+        window.location.href = "tela_programas.html";
+      });
+
+      $(".stats").click(function() {
+        window.location.href = "tela_stats.html";
+      });
+
+      $("#sair").click(function() {
+        localStorage.setItem('active', 0);
+        window.location.href = "login.html";
+      });
+
+      $("#FirstBubble").click(function() {
+        window.location.href = "tela_tipo.html"
+      });
+
+      $("#SecondBubble").click(function() {
+        window.location.href = "tela_montados.html"
+      });
+
+    });
+
+
+    /*SideNav*/
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "50%";
+
+
+      document.getElementById("popback").style.display = "none";
+      document.getElementById("navbar").style.background = "linear-gradient(0deg, rdb(178,178,178) 15%, rgba(0, 0, 0, 0.1) 10%)";
+      document.getElementsByTagName("body")[0].style.background = "#fff";
+
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+
+    /*PopUp*/
+    function openPupUp() {
+      var popy = document.getElementById("popback").style.display;
+      if (popy == "none") {
+        document.getElementById("popback").style.display = "block";
+        document.getElementById("navbar").style.background = "rgba(0, 0, 0, 0) linear-gradient(0deg, rgb(124, 124, 124) 15%, rgb(206, 206, 206) 10%) repeat scroll 0% 0%";
+        document.getElementsByTagName("body")[0].style.background = "rgba(0,0,0,0.3)";
+        closeNav();
+      } else {
+        document.getElementById("popback").style.display = "none";
+        document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+        document.getElementsByTagName("body")[0].style.background = "#fff";
+      }
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById("popback")) {
+        document.getElementById("popback").style.display = "none";
+        document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+        document.getElementsByTagName("body")[0].style.background = "#fff";
+      }
+    }
+  </script>
+</head>
+
+<body onload="load()">
+  <div class="content-desktop">
+    <h1>APENAS MOBILE</h1>
+  </div>
+
+  <div class="content-mobile">
+
+    <nav>
+      <ul id="navbar">
+
+        <li class="li_n"><span onclick="openNav()"><img class="things" src="img/3things.png"></span></li>
+        <li class="li_n"><img class="clock" src="img/clock.png"></li>
+        <li class="li_m"><img onclick="openPupUp()" class="main" src="img/main.png"></li>
+        <li class="li_n"><img class="stats" src="img/stats.png"></li>
+        <li class="li_n"><img class="perfil" src="img/perfil.png"></li>
+      </ul>
+    </nav>
+
+
+    <div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="tela_principal.html" id="home_txt">
+				<div id="home_behind"><img class="icon_home" src="img/home.png"></div>Início
+			</a>
+
+			<a href="tela_exercicios.html" id="forte_txt">
+				<div id="forte_behind"><img class="icon_forte" src="img/Forte2.3.png"></div>Movimentos
+			</a>
+			<a class="sobre" href="tela_sobreNos.html">Sobre nós</a>
+			<a id="sair">Sair</a>
+		</div>
+
+    <div id="popback">
+      <div id="popup">
+        <div id="FirstBubble" href="tela_tipo.html">
+					<a id="TreinoAutomatico">Treino Automático</a>
+				</div>
+				<div id="SecondBubble" href="tela_montados.html">
+					<a id="TreinosMontados">Treinos Montados</a>
+				</div>
+      </div>
+    </div>
+    <div id="area">
+      <h1 id="Titulo">O que é Calistenia | Calfitx</h1>
+      <hr id="LinhaTop"><br>
+      <img id="ImgInicial" src="img/Human-Flag-Real.png">
+      <br><br>
+      <hr id="LinhaTop">
+      <p id="ExpInicial">Calistenia é um método de exercício onde se utiliza apenas o peso do próprio corpo, sem a necessidade de pesos, aparelhos ou equipamentos de academia. Fornecendo assim exercícios saudáveis com menos risco de lesão. <br><br>Ele
+        pode ser praticado em qualquer lugar, principalmente locais com barras de metal, pois muitos exercícios são feitos na barra de metal. Mesmo assim ainda se pode ser praticado em casa. Diferente da Ginastica onde é preciso ir a um ginásio e
+        treinar com barras que não são 100% estáticas e equipamentos adequados, se treina calistenia em barras estáticas dificultando os exercícios.<br><br>A calistenia foi proposta para pessoas de todas as idades, permitindo a melhora de sua saúde,
+        o desenvolvimento harmônico e o aprumo dos corpos, objetivos comuns à ginástica.</p>
+      <br><br><br><br>
+      <h1 id="Titulo">Origem da Calistenia</h1>
+      <hr id="LinhaTop"><br>
+      <img id="ImgInicial" src="img/Greek.png">
+      <br><br>
+      <hr id="LinhaTop">
+      <p id="ExpInicial">O termo Calistenia vem desde a Grécia Antiga, porém nessa época os exercícios realizados eram basicamente para o ganho da força harmoniosa e de um corpo esbelto, e estavam de acordo com os valores adotados pela sociedade e
+        seus ideais de educação da época.<br><br>
+        Em Roma, estes exercícios foram frequentemente utilizados para preparatórios dos jogos olímpicos e exercícios da preparação militar, que também receberam essa denominação, mas caiu no desuso por volta de 393 d.C., com a proibição dos jogos
+        olímpicos, pelo Imperador Teodósio.<br><br>
+        Os exercícios calistênicos, datados por volta do ano de 1785, foram modernizados quando o professor de ginástica Christian Carl André da escola de Salzman, na Alemanha, que integrou a prática destes exercícios à educação física, para os dias
+        em que não se podia praticar atividades ao ar livre. Ele estabeleceu uma série de movimentos e posições com o objetivo de educar o corpo, intitulou, como "boas atitudes e a boa postura".<br><br>
+        Um pouco mais de meio século mais tarde, Clias, professor suíço de ginástica, publicou um livro com o título “Kallisthenie – Exercises for Beauty and Strength”. Este era um livro dedicado exclusivamente as mulheres e trazia exercícios
+        ritmados e sem aparatos manuais.<br><br>
+        Anos após a publicação do livro, um alemão chamado Spiess, passou a ensinar nas escolas da Suiça, a “ginástica leve para garotas”, que embora não fosse chamada de Calistenia, era igual ao trabalho de Clias.<br><br>
+        O Dr. Skarstrom, um norte americano de origem sueca, se baseou no sistema sueco e em suas observações da ginástica dinamarquesa, foi quem sistematizou o método ginástico denominado Calistenia, apresentando o que ficou conhecido como “Plano
+        Skarstrom”. E pouco tempo depois, Willian Wood, um dos propulsores da Calistenia nos Estados Unidos, introduziu algumas mudanças no Plano Skarstrom.<br><br>
+        Estas modificações foram apenas alterações nas seqüências de exercícios para ficarem de acordo com as discussões dos fisiologistas da época. A preocupação ainda continuou sendo a saúde e o bem-estar da sociedade.<br><br>
+        A Calistenia chegou aos Estados Unidos, sendo utilizada nas escolas entre 1865 e 1900, mas logo deixou de fazer parte da grade escolar, voltando a ser um sistema ginástica.<br><br>
+        Na evolução da Calistenia na Grécia Antiga e nos tempos de hoje, conclui-se que antigamente era utilizada para construir corpos belos e esteticamente equilibrados para que dessa forma, conseguissem o mesmo com suas almas, pois acreditavam
+        que um corpo são, era sinônimo de um espírito são. E atualmente, observa-se que o real motivo é a busca de um corpo perfeito, da boa saúde, e da tão sonhada “qualidade de vida”.
+      </p>
+      <br><br><br><br>
+    </div>
+
+  </div>
+</body>
+
+</html>

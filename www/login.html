@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/loginstyle.css">
+</head>
+<body id="Login">
+	 <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "https://mattfontes.000webhostapp.com/php-code/auth.php";
+            var active = localStorage.getItem('active');
+            if(active == '1')
+            {
+                window.location.href = "tela_principal.html";
+            }
+            else
+            {
+
+                $("#btnEnviar").click(function(){
+                    var name= $.trim($("#name").val());
+                    var password= $.trim($("#password").val());
+
+                    if($.trim(name).length > 0 && $.trim(password).length > 0)
+                    {
+                    var loginString ="name="+name+"&password="+password+"&login=";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: loginString,
+                        crossDomain: true,
+                        cache: false,
+                        success: function(data){
+                            if(data == "success") {
+                                localStorage.setItem('active', 1);
+                                localStorage.setItem('name', name);
+
+
+
+                                window.location.href = "tela_principal.html";
+                            }
+                            else if(data == "error")
+                            {
+                                document.getElementById("errormsg").style.display = "block";
+                                document.getElementById("errormsg").textContent="Login ou Senha incorreto";
+                            }
+                        }
+                    });
+                    }
+                    else
+                    {
+                        document.getElementById("errormsg").style.display = "block";
+                        document.getElementById("errormsg").textContent="Preencha todos os campos";
+                    }
+                });
+                $("#smalltxt2").click(function(){
+                    window.location.href = "cadastro.html";
+                });
+
+
+            }
+        });
+    </script>
+    <br>
+	<img id="imgcentro" src="img/icon.png">
+	<p id="BigName">CALFITX</p>
+    <div id="alignmsg">
+        <small id="errormsg">Login ou Senha Incorretos</small>
+    </div>
+
+		<p class="gLogin">Login</p>
+		<input id="name" type="text" placeholder="Insira seu login">
+
+		<hr class="line">
+
+		<p class="gPass">Senha</p>
+		<input id="password" type="password" placeholder="••••••••">
+
+		<hr class="line"><br><br>
+
+		<button id="btnEnviar">Login</button>
+
+
+
+	<p id="smalltxt">Não possui uma conta?<span id="smalltxt2">Criar Conta</span></p>
+    <br><br><br><br><br><br>
+	<p id="rtxt">Calfitx.™ - 2018 - Todos os direitos reservados.</p>
+</body>
+</html>

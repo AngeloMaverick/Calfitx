@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tela Inicial</title>
+	<link href="css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        function load(){
+
+            var active = localStorage.getItem('active');
+            if(active != '1')
+            {
+                window.location.href = "login.html";
+            }
+
+            var name = localStorage.getItem('name');
+            $.getJSON("http://mattfontes.000webhostapp.com/php-code/ColetaCd.php",
+            {
+                login: name,
+            }
+            ,function(result) {
+                $.each(result, function(i, field) {
+                    var id = field.cd_cadastro;
+										var perfil = field.tp_perfil;
+										localStorage.setItem('perfil', perfil);
+                    localStorage.setItem('id', id);
+                });
+            });
+            document.getElementById("popback").style.display = "none";
+        }
+
+        /*SideNav Style*/
+   		$(document).ready(function(){
+            var active = localStorage.getItem('active');
+            if(active == '0')
+            {
+                window.location.href = "login.html";
+            }
+            else
+            {
+                $(".escrito").click(function (){
+                    window.location.href = "tela_info.html";
+                });
+
+        		$("#home_txt").mouseover(function(){
+        			$("#home_txt").css("color", "green");
+            		$("#home_behind").css("background-color", "green");
+
+        		});
+        		$("#home_txt").mouseout(function(){
+            		$("#home_behind").css("background-color", "white");
+            		$("#home_txt").css("color", "white");
+        		});
+
+
+
+        		$("#forte_txt").mouseover(function(){
+        			$("#forte_txt").css("color", "green");
+            		$("#forte_behind").css("background-color", "green");
+
+        		});
+        		$("#forte_txt").mouseout(function(){
+            		$("#forte_behind").css("background-color", "white");
+            		$("#forte_txt").css("color", "white");
+        		});
+
+                $("#sair").click(function(){
+                    localStorage.setItem('active', 0);
+                    window.location.href = "login.html";
+                });
+
+        		$("#calendario_txt").mouseover(function(){
+        			$("#calendario_txt").css("color", "green");
+            		$("#calendario_behind").css("background-color", "green");
+
+        		});
+        		$("#calendario_txt").mouseout(function(){
+            		$("#calendario_behind").css("background-color", "white");
+            		$("#calendario_txt").css("color", "white");
+        		});
+                $(".perfil").click(function(){
+                    window.location.href = "tela_perfil.html";
+                });
+
+                $(".stats").click(function(){
+                    window.location.href="tela_stats.html";
+                });
+
+								$(".clock").click(function(){
+                    window.location.href="tela_programas.html";
+                });
+
+
+                $("#FirstBubble").click(function(){
+                    window.location.href = "tela_tipo.html"
+                });
+
+                $("#SecondBubble").click(function(){
+                    window.location.href = "tela_montados.html"
+                });
+
+                $("#ThirdBubble").click(function(){
+                    window.location.href = "tela_montados.html"
+                });
+
+        }
+
+		});
+
+
+        /*SideNav*/
+		function openNav() {
+    		document.getElementById("mySidenav").style.width = "50%";
+
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, rdb(178,178,178) 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "rgba(0, 0, 0, 0.1)";
+
+		}
+
+		function closeNav() {
+ 		   document.getElementById("mySidenav").style.width = "0";
+		}
+
+
+        /*PopUp*/
+        function openPupUp(){
+            var popy = document.getElementById("popback").style.display;
+            if(popy == "none")
+            {
+                document.getElementById("popback").style.display = "block";
+                document.getElementById("navbar").style.background = "rgba(0, 0, 0, 0) linear-gradient(0deg, rgb(178, 178, 178) 15%, rgb(206, 206, 206) 10%) repeat scroll 0% 0%";
+                document.getElementsByTagName("body")[0].style.background = "rgba(0,0,0,0.3)";
+                closeNav();
+            }
+            else
+            {
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "rgba(0, 0, 0, 0.1)";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("popback")) {
+                document.getElementById("popback").style.display = "none";
+                document.getElementById("navbar").style.background = "linear-gradient(0deg, #ffffff 15%, rgba(0, 0, 0, 0.1) 10%)";
+                document.getElementsByTagName("body")[0].style.background = "rgba(0, 0, 0, 0.1)";
+            }
+        }
+    </script>
+</head>
+<body onload="load()">
+    <div class="content-desktop">
+   		<h1>APENAS MOBILE</h1>
+    </div>
+
+    <div class="content-mobile">
+
+    	<nav>
+			<ul id="navbar">
+
+				<li class="li_n"><span onclick="openNav()"><img class="things" src="img/3things.png"></span></li>
+				<li class="li_n"><img class="clock" src="img/clock.png"></li>
+				<li class="li_m"><img onclick="openPupUp()" class="main" src="img/main.png"></li>
+				<li class="li_n"><img class="stats" src="img/stats.png"></li>
+				<li class="li_n"><img class="perfil" src="img/perfil.png"></li>
+			</ul>
+		</nav>
+
+
+		<div id="mySidenav" class="sidenav">
+ 		 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		 <a href="#" id="home_txt" onclick="closeNav()"><div id="home_behind"><img class="icon_home" src="img/home.png"></div>Início</a>
+
+ 		 <a href="tela_exercicios.html" id="forte_txt"><div id="forte_behind"><img class="icon_forte" src="img/Forte2.3.png"></div>Movimentos</a>
+ 		 <a class="sobre" href="tela_sobreNos.html">Sobre nós</a>
+         <a id="sair">Sair</a>
+		</div>
+
+        <div id="popback">
+            <div id="popup">
+							<div id="FirstBubble" href="tela_tipo.html">
+								<a id="TreinoAutomatico">Treino Automático</a>
+							</div>
+							<div id="SecondBubble" href="tela_montados.html">
+								<a id="TreinosMontados">Treinos Montados</a>
+							</div>
+            </div>
+        </div>
+
+
+		<div class="escrito">
+			<p class="text1">Não sabe o que é<br>Calistenia?<br>Clique para <br>Descobrir!</p>
+			<img  class="info" src="img/info.png">
+    	</div>
+
+
+    	<div class="escrito2">
+    		<img href="javascript:void(0)" onclick="openPupUp()" class="main2" src="img/main.png">
+    		<p class="text2">Comece Agora!<br>Crie seu próprio<br>treino!</p>
+    	</div>
+
+    	<div class="escrito3">
+			<p class="text3">Explore os novos<br>programas de<br>treino.</p>
+			<img  class="clock2" src="img/clock.png">
+    	</div>
+
+
+</body>
+</html>
